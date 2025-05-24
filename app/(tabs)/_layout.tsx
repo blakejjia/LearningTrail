@@ -1,12 +1,12 @@
-import { Tabs } from "expo-router";
-import React from "react";
-import { Platform } from "react-native";
+import { router, Tabs } from "expo-router";
+import { Platform, Pressable } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
 import { ThemedIcon } from "@/components/ThemedIcon";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import tw from "twrnc";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -30,14 +30,17 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Todo List",
-          tabBarIcon: ({ color }) => (
-            <ThemedIcon
-              name="home"
-              size={28}
-              lightColor={color}
-              darkColor={color}
-            />
+          headerRight: () => (
+            <Pressable
+              onPress={() => {
+                router.push("/(parent_tabs)/todoItem");
+              }}
+              style={tw`mr-4`}
+            >
+              <ThemedIcon name="settings" size={28} />
+            </Pressable>
           ),
+          tabBarIcon: ({ color }) => <ThemedIcon name="home" size={28} />,
         }}
       />
       <Tabs.Screen

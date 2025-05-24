@@ -1,14 +1,15 @@
 import { ScrollView } from "react-native";
 
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import TodoTile from "@/components/tiles/TodoTile";
+import { useStore } from "@/store/store";
 
 export default function HomeScreen() {
+  const toDoList = useStore((state) => state.toDoList);
   return (
     <ScrollView>
-      <ThemedView>
-        <ThemedText>Hello</ThemedText>
-      </ThemedView>
+      {toDoList.map((item) => (
+        <TodoTile uuid={item.id} />
+      ))}
     </ScrollView>
   );
 }
