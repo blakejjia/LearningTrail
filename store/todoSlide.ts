@@ -1,49 +1,86 @@
-import { db, usersTable } from "@/drizzle/db";
-import { eq } from "drizzle-orm";
+import { v4 as uuidv4 } from "uuid";
+import { Reward } from "./additionalModels/rewards";
 import { TodoItem } from "./models/todoItem";
-import { convertStateToData } from "./utils";
+
+export const defaultTodoList: TodoItem[] = [
+  {
+    id: uuidv4(),
+    category: "1",
+    details: {
+      title: "Add the todos",
+      description: "Add the todos to the list",
+      completed: false,
+      reward: new Reward(10, "1"),
+    },
+  },
+];
 
 export type TodoData = Pick<TodoSlice, "toDoList">;
 
 export interface TodoSlice {
   toDoList: TodoItem[];
+
   getTodo: (id: string) => TodoItem | null;
-  setToDoList: (toDoList: TodoItem[]) => void;
+  refreshTodoList: () => void;
+  identifyTodoAsCompleted: (id: string) => void;
+  identifyAsNotCompleted: (id: string) => void;
+  completeTodo: (id: string) => void;
   createTodo: (toDoItem: TodoItem) => void;
   removeToDoItem: (id: string) => void;
-
-  loadFromDb: (uuid: string) => void;
-  saveToDb: (uuid: string) => void;
 }
 
 export const createTodoSlice = (set: any, get: any): TodoSlice => ({
   getTodo: (id: string) =>
     get().toDoList.find((item: TodoItem) => item.id === id) || null,
-  toDoList: [],
-  setToDoList: (toDoList) => set({ toDoList }),
-  createTodo: (toDoItem) => set({ toDoList: [...get().toDoList, toDoItem] }),
-  removeToDoItem: (id) =>
+  toDoList: defaultTodoList,
+  refreshTodoList: () => set({ toDoList: get().loadFromDb() }),
+  createTodo: (toDoItem) => {
+    set({ toDoList: [...get().toDoList, toDoItem] });
+    get().saveToDb();
+  },
+  removeToDoItem: (id) => {
     set({
       toDoList: get().toDoList.filter((item: TodoItem) => item.id !== id),
-    }),
-
-  loadFromDb: async (uuid: string) => {
-    const data = await db
-      .select()
-      .from(usersTable)
-      .where(eq(usersTable.id, uuid));
-    if (data[0].data.todo) {
-      set(data[0].data.todo);
-    } else {
-      set({ toDoList: [] });
-    }
+    });
+    get().saveToDb();
   },
-  saveToDb: async (uuid: string) => {
-    const newData = convertStateToData(get());
-
-    await db
-      .update(usersTable)
-      .set({ data: newData })
-      .where(eq(usersTable.id, uuid));
+  identifyTodoAsCompleted: (id: string) => {
+    set({
+      toDoList: get().toDoList.map((item: TodoItem) =>
+        item.id === id
+          ? {
+              ...item,
+              details: { ...item.details, identifiedCompleted: true },
+            }
+          : item
+      ),
+    });
+    get().saveToDb();
+  },
+  identifyAsNotCompleted: (id: string) => {
+    set({
+      toDoList: get().toDoList.map((item: TodoItem) =>
+        item.id === id
+          ? {
+              ...item,
+              details: { ...item.details, identifiedCompleted: false },
+            }
+          : item
+      ),
+    });
+    get().saveToDb();
+  },
+  completeTodo: (id: string) => {
+    set({
+      toDoList: get().toDoList.map((item: TodoItem) =>
+        item.id === id
+          ? {
+              ...item,
+              details: { ...item.details, completed: true },
+            }
+          : item
+      ),
+    });
+    get().saveToDb();
   },
 });

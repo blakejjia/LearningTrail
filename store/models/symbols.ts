@@ -1,3 +1,4 @@
-import * as Icons from "lucide-react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
-export type Symbols = keyof typeof Icons; // 类型安全 icon 名称！
+// 类型安全：所有 MaterialIcons 图标的名称
+export type Symbols = keyof typeof MaterialIcons.glyphMap;

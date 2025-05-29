@@ -1,11 +1,11 @@
 import { ThemedView } from "@/components/ThemedView";
-import { Reward } from "@/store/models/rewards";
+import { Prize } from "@/store/models/prize";
 import useStore from "@/store/store";
 import { useEffect, useState } from "react";
 import { Text } from "react-native";
 
 export default function RewardsCard({ uuid }: { uuid: string }) {
-  const [reward, setReward] = useState<Reward | null>(null);
+  const [reward, setReward] = useState<Prize | null>(null);
   useEffect(() => {
     const reward = useStore.getState().getReward(uuid);
     setReward(reward);

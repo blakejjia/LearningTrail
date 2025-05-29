@@ -1,3 +1,4 @@
+import { Reward } from "./currency";
 import { Duration } from "./Duratoin";
 
 export interface TodoItemDetails {
@@ -5,7 +6,9 @@ export interface TodoItemDetails {
   category?: string;
   time?: Duration;
   description?: string;
+  identifiedCompleted?: boolean;
   completed?: boolean;
+  reward?: Reward;
 }
 
 export interface TodoItem {

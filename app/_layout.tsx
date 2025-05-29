@@ -10,6 +10,10 @@ import "react-native-gesture-handler";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import useStore from "@/store/store";
+import { SystemFeedback } from "@/store/systemSlide";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
@@ -17,18 +21,35 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+  const [systemFeedback, setSystemFeedback] = useState<SystemFeedback | null>(
+    null
+  );
 
-  if (!loaded) {
+  useEffect(() => {
+    useStore
+      .getState()
+      .connectServer()
+      .then((res) => {
+        setSystemFeedback(res);
+      });
+  }, []);
+
+  if (!loaded || !systemFeedback) {
     // Async font loading only occurs in development.
-    return null;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack initialRouteName="(tabs)">
-          <Stack.Screen name="subpages" options={{ headerShown: false }} />
-          <Stack.Screen name="(parent_tabs)" options={{ headerShown: false }} />
+        <Stack
+          initialRouteName={systemFeedback?.success ? "(tabs)" : "login/index"}
+        >
+          <Stack.Screen name="login/index" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>

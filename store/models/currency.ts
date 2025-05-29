@@ -1,5 +1,4 @@
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 import { Symbols } from "./symbols";
 
 export interface Currency {
@@ -10,13 +9,13 @@ export interface Currency {
 
 export const defaultCurrencies: Currency[] = [
   {
-    id: uuidv4(),
-    name: "学习币",
-    symbol: "CircleDollarSign",
+    id: "1",
+    name: "Learning Coin",
+    symbol: "paid",
   },
   {
-    id: uuidv4(),
-    name: "金币",
-    symbol: "Gem",
+    id: "2",
+    name: "Diamond",
+    symbol: "diamond",
   },
 ];

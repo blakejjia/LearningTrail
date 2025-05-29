@@ -27,7 +27,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="todo"
         options={{
           title: "Todo List",
           headerRight: () => (

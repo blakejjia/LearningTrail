@@ -6,11 +6,14 @@ import { StoreData } from "./store";
 import { SystemData } from "./systemSlide";
 import { TodoData } from "./todoSlide";
 
-export function convertStateToData(state: StoreState): StoreData {
-  const { parentPassword, shortId, rewards, toDoList, categories, currencies } =
-    state;
+import * as SecureStore from "expo-secure-store";
 
-  const system: SystemData = { parentPassword, shortId };
+export function convertStateToData(state: StoreState): StoreData {
+  const { sessionId: uuid, rewards, toDoList, categories, currencies } = state;
+
+  const system: SystemData = {
+    sessionId: uuid,
+  };
   const rewardsData: RewardData = { rewards };
   const todoData: TodoData = { toDoList };
   const modelsData: ModelsData = { categories, currencies };
@@ -21,4 +24,15 @@ export function convertStateToData(state: StoreState): StoreData {
     todo: todoData,
     models: modelsData,
   };
+}
+
+const SESSION_UUID_KEY = "session_uuid";
+
+export async function getSessionUUID(): Promise<string | null> {
+  let uuid = await SecureStore.getItemAsync(SESSION_UUID_KEY);
+  return uuid;
+}
+
+export async function setSessionUUID(uuid: string) {
+  await SecureStore.setItemAsync(SESSION_UUID_KEY, uuid);
 }

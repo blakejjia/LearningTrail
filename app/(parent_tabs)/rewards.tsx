@@ -7,7 +7,7 @@ import { router } from "expo-router";
 import { Pressable, ScrollView, View } from "react-native";
 import tw from "twrnc";
 
-export default function Rewards() {
+export default function rewards() {
   const rewards = useStore((state) => state.rewards);
   return (
     <ScrollView>
