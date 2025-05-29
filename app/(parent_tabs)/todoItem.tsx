@@ -1,7 +1,7 @@
 import { ThemedIcon } from "@/components/ThemedIcon";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import TodoTile from "@/components/tiles/TodoTile";
+import TodoTile from "@/components/todo/TodoTile";
 import { useStore } from "@/store/store";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useMemo, useRef, useState } from "react";
@@ -14,6 +14,7 @@ export default function TodoItem() {
   const snapPoints = useMemo(() => ["10%", "25%", "50%"], []);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const toDoList = useStore((state) => state.toDoList);
+
   return (
     <View style={tw`flex-1`}>
       <ScrollView>
@@ -55,7 +56,7 @@ export default function TodoItem() {
         enablePanDownToClose
       >
         <BottomSheetView>
-          <TodoDetail id={selectedId} />
+          <TodoDetail id={selectedId} key={selectedId} />
         </BottomSheetView>
       </BottomSheet>
     </View>

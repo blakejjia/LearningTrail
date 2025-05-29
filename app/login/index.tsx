@@ -2,7 +2,7 @@ import ThemedButton from "@/components/ThemedButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useStore } from "@/store/store";
-import { SystemFeedback } from "@/store/systemSlide";
+import { SystemFeedback } from "@/store/utils";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { TextInput } from "react-native";

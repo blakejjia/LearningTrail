@@ -2,6 +2,7 @@ import ThemedButton from "@/components/ThemedButton";
 import { ThemedIcon } from "@/components/ThemedIcon";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { rewardToWidget } from "@/components/other/reward";
 import { TodoItem } from "@/store/models/todoItem";
 import { useStore } from "@/store/store";
 import { useLocalSearchParams, useNavigation } from "expo-router";
@@ -41,7 +42,10 @@ export default function TodoPage() {
         {item.details?.reward && (
           <>
             <ThemedIcon name="redeem" size={24} />
-            {item.details.reward.toWidget()}
+            {rewardToWidget(
+              useStore.getState().currencies,
+              item.details.reward
+            )}
           </>
         )}
       </ThemedView>

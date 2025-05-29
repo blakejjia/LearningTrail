@@ -30,9 +30,9 @@ export class Duration {
   }
 
   toString(): string {
-    const sec = Math.floor(this.milliseconds / 1000);
-    const ms = this.milliseconds % 1000;
-    return `${sec}s ${ms}ms`;
+    const minutes = Math.floor(this.milliseconds / 60_000);
+    const seconds = Math.floor((this.milliseconds % 60_000) / 1000);
+    return `${minutes}m ${seconds}s`;
   }
 
   add(other: Duration): Duration {

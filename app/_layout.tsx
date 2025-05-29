@@ -11,7 +11,7 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import useStore from "@/store/store";
-import { SystemFeedback } from "@/store/systemSlide";
+import { SystemFeedback } from "@/store/utils";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";

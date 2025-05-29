@@ -1,9 +1,9 @@
-import { Reward } from "./currency";
+import { Reward } from "@/store/additionalModels/rewards";
 import { Duration } from "./Duratoin";
+import { Category } from "./category";
 
 export interface TodoItemDetails {
   title?: string;
-  category?: string;
   time?: Duration;
   description?: string;
   identifiedCompleted?: boolean;
@@ -14,7 +14,7 @@ export interface TodoItemDetails {
 export interface TodoItem {
   // general info
   id: string;
-  category?: string;
+  category?: Category;
   created_at?: Date;
   updated_at?: Date;
   // details

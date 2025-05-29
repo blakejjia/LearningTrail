@@ -12,6 +12,6 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "store/additionalModels/rewards.tsx"
+    "store/additionalModels/rewards.ts"
   ]
 }

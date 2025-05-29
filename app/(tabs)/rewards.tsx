@@ -1,5 +1,5 @@
 import { ThemedIcon } from "@/components/ThemedIcon";
-import RewardsCard from "@/components/tiles/rewardsCard";
+import PrizeCard from "@/components/prize/rewardsCard";
 import { useStore } from "@/store/store";
 import { Text, View } from "react-native";
 import tw from "twrnc";
@@ -20,7 +20,7 @@ export default function RewardsScreen() {
   return (
     <View>
       {rewards.map((reward) => (
-        <RewardsCard uuid={reward.id} key={reward.id} />
+        <PrizeCard prize={reward} key={reward.id} />
       ))}
     </View>
   );

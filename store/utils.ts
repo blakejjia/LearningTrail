@@ -1,28 +1,42 @@
+import { AuthData } from "./authSlide";
 import { ModelsData } from "./modelsSlide";
-import { RewardData } from "./rewardsSlide";
-import { StoreState } from "./store";
-
-import { StoreData } from "./store";
-import { SystemData } from "./systemSlide";
+import { PrizeData } from "./rewardsSlide";
+import { StoreData, StoreState } from "./store";
 import { TodoData } from "./todoSlide";
 
 import * as SecureStore from "expo-secure-store";
 
-export function convertStateToData(state: StoreState): StoreData {
-  const { sessionId: uuid, rewards, toDoList, categories, currencies } = state;
+export interface SystemFeedback {
+  success: boolean;
+  message: string;
+}
 
-  const system: SystemData = {
+export function convertStateToData(state: StoreState): StoreData {
+  const { sessionId: uuid, prizes, toDoList, categories, currencies } = state;
+
+  const system: AuthData = {
     sessionId: uuid,
+    parentPassword: state.parentPassword || null,
   };
-  const rewardsData: RewardData = { rewards };
+  const prizeData: PrizeData = { prizes };
   const todoData: TodoData = { toDoList };
   const modelsData: ModelsData = { categories, currencies };
 
   return {
     system,
-    rewards: rewardsData,
+    prizes: prizeData,
     todo: todoData,
     models: modelsData,
+  };
+}
+
+export function convertDataToState(data: StoreData): Partial<StoreState> {
+  const { system, prizes, todo, models } = data;
+  return {
+    ...system,
+    ...prizes,
+    ...todo,
+    ...models,
   };
 }
 

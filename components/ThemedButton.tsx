@@ -10,7 +10,7 @@ interface ThemedButtonProps {
 export default function ThemedButton({ children, onPress }: ThemedButtonProps) {
   return (
     <TouchableOpacity
-      style={tw`p-4 rounded-lg border-2 border-grey-500 justify-center items-center`}
+      style={tw`p-4 rounded-lg border-2 justify-center items-center`}
       onPress={onPress}
     >
       <ThemedView>{children}</ThemedView>

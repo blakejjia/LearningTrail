@@ -5,9 +5,15 @@ import { Symbols } from "./symbols";
 export interface Category {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   symbol: Symbols;
 }
+
+export const NonSelectedCategory: Category = {
+  id: uuidv4(),
+  name: "NotSelected",
+  symbol: "question-mark",
+};
 
 export const defaultCategories: Category[] = [
   {

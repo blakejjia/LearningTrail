@@ -2,6 +2,10 @@ import { Category, defaultCategories } from "./models/category";
 import { Currency, defaultCurrencies } from "./models/currency";
 
 export type ModelsData = Pick<ModelsSlide, "currencies" | "categories">;
+export const defaultModelsData: ModelsData = {
+  currencies: defaultCurrencies,
+  categories: defaultCategories,
+};
 
 export interface ModelsSlide {
   currencies: Currency[];
@@ -12,8 +16,8 @@ export interface ModelsSlide {
 }
 
 export const createModelsSlide = (set: any, get: any): ModelsSlide => ({
-  currencies: defaultCurrencies,
-  categories: defaultCategories,
+  currencies: [],
+  categories: [],
 
   getCurrency: (id: string) =>
     get().currencies.find((currency: Currency) => currency.id === id) || null,

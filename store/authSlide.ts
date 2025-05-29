@@ -1,16 +1,24 @@
 import { db, sessionsTable, usersTable } from "@/drizzle/db";
 import bcrypt from "bcryptjs";
 import { and, eq, gt, or } from "drizzle-orm";
-import { convertStateToData, getSessionUUID, setSessionUUID } from "./utils";
+import { defaultModelsData } from "./modelsSlide";
+import { defaultRewardData } from "./rewardsSlide";
+import { defaultTodoData } from "./todoSlide";
+import {
+  convertDataToState,
+  convertStateToData,
+  getSessionUUID,
+  setSessionUUID,
+  SystemFeedback,
+} from "./utils";
 
-export type SystemData = Pick<SystemSlice, "sessionId" | "parentPassword">;
+export type AuthData = Pick<AuthSlice, "sessionId" | "parentPassword">;
+export const defaultAuthData: AuthData = {
+  sessionId: null,
+  parentPassword: null,
+};
 
-export interface SystemFeedback {
-  success: boolean;
-  message: string;
-}
-
-export interface SystemSlice {
+export interface AuthSlice {
   sessionId: string | null;
   parentPassword: string | null;
 
@@ -28,7 +36,7 @@ export interface SystemSlice {
   saveToDb: () => Promise<SystemFeedback>;
 }
 
-export const createSystemSlice = (set: any, get: any): SystemSlice => ({
+export const createAuthSlice = (set: any, get: any): AuthSlice => ({
   sessionId: null,
   parentPassword: null,
 
@@ -47,6 +55,7 @@ export const createSystemSlice = (set: any, get: any): SystemSlice => ({
         );
       if (session.length > 0 && session[0].id) {
         set({ sessionId: session[0].id });
+        get().loadFromDb();
         return { success: true, message: "connect successfully" };
       } else {
         const id = await db
@@ -123,6 +132,12 @@ export const createSystemSlice = (set: any, get: any): SystemSlice => ({
     await db.insert(usersTable).values({
       email,
       password: hashedPwd,
+      data: {
+        system: defaultAuthData,
+        rewards: defaultRewardData,
+        todo: defaultTodoData,
+        models: defaultModelsData,
+      },
       shortId,
     });
     return { success: true, message: "signup successfully" };
@@ -141,8 +156,8 @@ export const createSystemSlice = (set: any, get: any): SystemSlice => ({
       .from(usersTable)
       .innerJoin(sessionsTable, eq(sessionsTable.accountId, usersTable.id))
       .where(eq(sessionsTable.id, get().sessionId));
-    if (data[0].data.system) {
-      set(data[0].data.system);
+    if (data[0].data) {
+      set(convertDataToState(data[0].data));
       return { success: true, message: "load successfully" };
     } else {
       set({});

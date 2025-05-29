@@ -1,21 +1,22 @@
 import { v4 as uuidv4 } from "uuid";
-import { Reward } from "./additionalModels/rewards";
+import { NonSelectedCategory } from "./models/category";
 import { TodoItem } from "./models/todoItem";
 
-export const defaultTodoList: TodoItem[] = [
-  {
-    id: uuidv4(),
-    category: "1",
-    details: {
-      title: "Add the todos",
-      description: "Add the todos to the list",
-      completed: false,
-      reward: new Reward(10, "1"),
-    },
-  },
-];
-
 export type TodoData = Pick<TodoSlice, "toDoList">;
+export const defaultTodoData: TodoData = {
+  toDoList: [
+    {
+      id: uuidv4(),
+      category: NonSelectedCategory,
+      details: {
+        title: "Add the todos",
+        description: "Add the todos to the list",
+        completed: false,
+        reward: { amount: 10, currencyId: "1" },
+      },
+    },
+  ],
+};
 
 export interface TodoSlice {
   toDoList: TodoItem[];
@@ -30,9 +31,10 @@ export interface TodoSlice {
 }
 
 export const createTodoSlice = (set: any, get: any): TodoSlice => ({
+  toDoList: [],
+
   getTodo: (id: string) =>
     get().toDoList.find((item: TodoItem) => item.id === id) || null,
-  toDoList: defaultTodoList,
   refreshTodoList: () => set({ toDoList: get().loadFromDb() }),
   createTodo: (toDoItem) => {
     set({ toDoList: [...get().toDoList, toDoItem] });
