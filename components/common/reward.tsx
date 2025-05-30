@@ -1,11 +1,11 @@
 import { Reward } from "@/store/additionalModels/rewards";
-import { ThemedIconProps } from "../ThemedIcon";
+import { ThemedIconProps } from "./ThemedIcon";
 
 import { Currency } from "@/store/models/currency";
 import tw from "twrnc";
-import { ThemedIcon } from "../ThemedIcon";
-import { ThemedText } from "../ThemedText";
-import { ThemedView } from "../ThemedView";
+import { ThemedIcon } from "./ThemedIcon";
+import { ThemedText } from "./ThemedText";
+import { ThemedView } from "./ThemedView";
 
 export function rewardToWidget(
   currencies: Currency[],

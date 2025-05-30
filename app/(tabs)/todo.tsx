@@ -1,7 +1,7 @@
 import { ScrollView, Text, View } from "react-native";
 
-import { ThemedIcon } from "@/components/ThemedIcon";
-import TodoTile from "@/components/todo/TodoTile";
+import { ThemedIcon } from "@/components/common/ThemedIcon";
+import TodoTile from "@/components/student/todo/TodoTile";
 import { useStore } from "@/store/store";
 import { router } from "expo-router";
 import { useEffect } from "react";

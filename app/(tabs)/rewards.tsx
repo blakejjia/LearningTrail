@@ -1,13 +1,13 @@
-import { ThemedIcon } from "@/components/ThemedIcon";
-import PrizeCard from "@/components/prize/rewardsCard";
+import { ThemedIcon } from "@/components/common/ThemedIcon";
+import PrizeCard from "@/components/student/prize/rewardsCard";
 import { useStore } from "@/store/store";
 import { Text, View } from "react-native";
 import tw from "twrnc";
 
 export default function RewardsScreen() {
-  const rewards = useStore((state) => state.rewards);
+  const prizes = useStore((state) => state.prizes);
 
-  if (rewards.length === 0) {
+  if (prizes.length === 0) {
     return (
       <View style={tw`flex-1 items-center justify-center p-20`}>
         <ThemedIcon name="add" size={64} />
@@ -19,8 +19,8 @@ export default function RewardsScreen() {
   }
   return (
     <View>
-      {rewards.map((reward) => (
-        <PrizeCard prize={reward} key={reward.id} />
+      {prizes.map((prize) => (
+        <PrizeCard prize={prize} key={prize.id} />
       ))}
     </View>
   );

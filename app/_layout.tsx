@@ -31,6 +31,9 @@ export default function RootLayout() {
       .connectServer()
       .then((res) => {
         setSystemFeedback(res);
+        if (res.success) {
+          useStore.getState().loadFromDb();
+        }
       });
   }, []);
 
@@ -51,6 +54,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="login/index" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(parent_tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

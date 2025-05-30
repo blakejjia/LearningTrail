@@ -1,4 +1,4 @@
-import { ThemedIcon } from "@/components/ThemedIcon";
+import { ThemedIcon } from "@/components/common/ThemedIcon";
 import { router, Tabs } from "expo-router";
 import { Pressable } from "react-native";
 import tw from "twrnc";
@@ -15,14 +15,28 @@ export default function ParentTabsLayout() {
               <ThemedIcon name="chevron-left" size={28} />
             </Pressable>
           ),
-          tabBarIcon: ({ color }) => <ThemedIcon name="home" size={28} />,
+          tabBarIcon: ({ color }) => (
+            <ThemedIcon
+              name="home"
+              size={28}
+              lightColor={color}
+              darkColor={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="rewards"
         options={{
           title: "Rewards",
-          tabBarIcon: ({ color }) => <ThemedIcon name="star" size={28} />,
+          tabBarIcon: ({ color }) => (
+            <ThemedIcon
+              name="star"
+              size={28}
+              lightColor={color}
+              darkColor={color}
+            />
+          ),
         }}
       />
     </Tabs>

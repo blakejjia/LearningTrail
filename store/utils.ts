@@ -14,8 +14,7 @@ export interface SystemFeedback {
 export function convertStateToData(state: StoreState): StoreData {
   const { sessionId: uuid, prizes, toDoList, categories, currencies } = state;
 
-  const system: AuthData = {
-    sessionId: uuid,
+  const auth: AuthData = {
     parentPassword: state.parentPassword || null,
   };
   const prizeData: PrizeData = { prizes };
@@ -23,7 +22,7 @@ export function convertStateToData(state: StoreState): StoreData {
   const modelsData: ModelsData = { categories, currencies };
 
   return {
-    system,
+    auth,
     prizes: prizeData,
     todo: todoData,
     models: modelsData,
@@ -31,9 +30,9 @@ export function convertStateToData(state: StoreState): StoreData {
 }
 
 export function convertDataToState(data: StoreData): Partial<StoreState> {
-  const { system, prizes, todo, models } = data;
+  const { auth, prizes, todo, models } = data;
   return {
-    ...system,
+    ...auth,
     ...prizes,
     ...todo,
     ...models,
@@ -42,11 +41,14 @@ export function convertDataToState(data: StoreData): Partial<StoreState> {
 
 const SESSION_UUID_KEY = "session_uuid";
 
-export async function getSessionUUID(): Promise<string | null> {
+export async function getSessionUUID(): Promise<string> {
   let uuid = await SecureStore.getItemAsync(SESSION_UUID_KEY);
+  if (!uuid) {
+    uuid = crypto.randomUUID();
+    await SecureStore.setItemAsync(SESSION_UUID_KEY, uuid);
+  }
   return uuid;
 }
-
-export async function setSessionUUID(uuid: string) {
-  await SecureStore.setItemAsync(SESSION_UUID_KEY, uuid);
+export async function clearSessionUUID(): Promise<void> {
+  await SecureStore.deleteItemAsync(SESSION_UUID_KEY);
 }

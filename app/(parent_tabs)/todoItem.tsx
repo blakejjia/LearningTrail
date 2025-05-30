@@ -1,7 +1,7 @@
-import { ThemedIcon } from "@/components/ThemedIcon";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import TodoTile from "@/components/todo/TodoTile";
+import { ThemedIcon } from "@/components/common/ThemedIcon";
+import { ThemedText } from "@/components/common/ThemedText";
+import { ThemedView } from "@/components/common/ThemedView";
+import TodoTile from "@/components/student/todo/TodoTile";
 import { useStore } from "@/store/store";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useMemo, useRef, useState } from "react";

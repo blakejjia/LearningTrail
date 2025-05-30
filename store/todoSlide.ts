@@ -27,6 +27,7 @@ export interface TodoSlice {
   identifyAsNotCompleted: (id: string) => void;
   completeTodo: (id: string) => void;
   createTodo: (toDoItem: TodoItem) => void;
+  updateTodo: (id: string, toDoItem: TodoItem) => void;
   removeToDoItem: (id: string) => void;
 }
 
@@ -81,6 +82,14 @@ export const createTodoSlice = (set: any, get: any): TodoSlice => ({
               details: { ...item.details, completed: true },
             }
           : item
+      ),
+    });
+    get().saveToDb();
+  },
+  updateTodo: (id: string, toDoItem: TodoItem) => {
+    set({
+      toDoList: get().toDoList.map((item: TodoItem) =>
+        item.id === id ? toDoItem : item
       ),
     });
     get().saveToDb();

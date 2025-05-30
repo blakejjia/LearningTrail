@@ -1,4 +1,4 @@
-import { ThemedView } from "@/components/ThemedView";
+import { ThemedView } from "@/components/common/ThemedView";
 import { Prize } from "@/store/models/prize";
 import { Text } from "react-native";
 

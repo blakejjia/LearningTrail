@@ -1,7 +1,7 @@
-import { ThemedIcon } from "@/components/ThemedIcon";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import PrizeCard from "@/components/prize/rewardsCard";
+import { ThemedIcon } from "@/components/common/ThemedIcon";
+import { ThemedText } from "@/components/common/ThemedText";
+import { ThemedView } from "@/components/common/ThemedView";
+import PrizeCard from "@/components/student/prize/rewardsCard";
 import { useStore } from "@/store/store";
 import { router } from "expo-router";
 import { Pressable, ScrollView, View } from "react-native";
@@ -9,6 +9,7 @@ import tw from "twrnc";
 
 export default function rewards() {
   const prizes = useStore((state) => state.prizes);
+
   return (
     <ScrollView>
       <ThemedView>

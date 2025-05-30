@@ -1,8 +1,8 @@
-import ThemedButton from "@/components/ThemedButton";
-import { ThemedIcon } from "@/components/ThemedIcon";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { rewardToWidget } from "@/components/other/reward";
+import ThemedButton from "@/components/common/ThemedButton";
+import { ThemedIcon } from "@/components/common/ThemedIcon";
+import { ThemedText } from "@/components/common/ThemedText";
+import { ThemedView } from "@/components/common/ThemedView";
+import { rewardToWidget } from "@/components/common/reward";
 import { TodoItem } from "@/store/models/todoItem";
 import { useStore } from "@/store/store";
 import { useLocalSearchParams, useNavigation } from "expo-router";

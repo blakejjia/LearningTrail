@@ -2,9 +2,9 @@ import { Category } from "@/store/models/category";
 import { useState } from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 import tw from "twrnc";
-import { ThemedIcon } from "../ThemedIcon";
-import { ThemedText } from "../ThemedText";
-import CategoryToWidget from "../other/category";
+import { ThemedIcon } from "../../common/ThemedIcon";
+import { ThemedText } from "../../common/ThemedText";
+import CategoryToWidget from "../../common/category";
 
 export default function CategorySelector({
   category,

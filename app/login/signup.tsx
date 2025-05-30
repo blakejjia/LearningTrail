@@ -1,8 +1,8 @@
-import ThemedButton from "@/components/ThemedButton";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { SystemFeedback } from "@/store/authSlide";
+import ThemedButton from "@/components/common/ThemedButton";
+import { ThemedText } from "@/components/common/ThemedText";
+import { ThemedView } from "@/components/common/ThemedView";
 import useStore from "@/store/store";
+import { SystemFeedback } from "@/store/utils";
 import { useState } from "react";
 import { TextInput } from "react-native";
 import tw from "twrnc";

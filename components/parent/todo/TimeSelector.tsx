@@ -1,9 +1,13 @@
-import { Duration } from "@/store/models/Duratoin";
+import {
+  createDuration,
+  Duration,
+  durationUtils,
+} from "@/store/models/Duratoin";
 import { useState } from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 import tw from "twrnc";
-import { ThemedIcon } from "../ThemedIcon";
-import { ThemedText } from "../ThemedText";
+import { ThemedIcon } from "../../common/ThemedIcon";
+import { ThemedText } from "../../common/ThemedText";
 
 export default function TimeSelector({
   time,
@@ -14,12 +18,16 @@ export default function TimeSelector({
 }) {
   const [timeOpen, setTimeOpen] = useState(false);
   // 解析当前 time
-  const [minute, setMinute] = useState(time ? time.toMinutes() : 0);
-  const [second, setSecond] = useState(time ? time.toSeconds() : 0);
+  const [minute, setMinute] = useState(
+    time ? durationUtils.toMinutes(time) : 0
+  );
+  const [second, setSecond] = useState(
+    time ? durationUtils.toSeconds(time) : 0
+  );
 
   // 当用户点击 Done 时，更新外部 time
   const handleDone = () => {
-    setTime(Duration.fromSeconds(minute * 60 + second));
+    setTime(createDuration.fromSeconds(minute * 60 + second));
     setTimeOpen(false);
   };
 
@@ -30,7 +38,7 @@ export default function TimeSelector({
         onPress={() => setTimeOpen(true)}
       >
         <ThemedIcon name="timer" size={24} />
-        <ThemedText>{time ? time.toString() : "Time"}</ThemedText>
+        <ThemedText>{time ? durationUtils.toString(time) : "Time"}</ThemedText>
       </Pressable>
       <Modal visible={timeOpen} transparent animationType="slide">
         <View style={tw`flex-1 justify-center items-center bg-black/50`}>

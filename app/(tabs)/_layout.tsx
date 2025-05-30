@@ -1,8 +1,7 @@
 import { router, Tabs } from "expo-router";
 import { Platform, Pressable } from "react-native";
 
-import { ThemedIcon } from "@/components/ThemedIcon";
-import TabBarBackground from "@/components/ui/TabBarBackground";
+import { ThemedIcon } from "@/components/common/ThemedIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import tw from "twrnc";
@@ -14,7 +13,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
             // Use a transparent background on iOS to show the blur effect
@@ -38,7 +36,14 @@ export default function TabLayout() {
               <ThemedIcon name="settings" size={28} />
             </Pressable>
           ),
-          tabBarIcon: ({ color }) => <ThemedIcon name="home" size={28} />,
+          tabBarIcon: ({ color }) => (
+            <ThemedIcon
+              name="home"
+              size={28}
+              lightColor={color}
+              darkColor={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen

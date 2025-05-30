@@ -1,6 +1,6 @@
-import ThemedButton from "@/components/ThemedButton";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import ThemedButton from "@/components/common/ThemedButton";
+import { ThemedText } from "@/components/common/ThemedText";
+import { ThemedView } from "@/components/common/ThemedView";
 import { useStore } from "@/store/store";
 import { SystemFeedback } from "@/store/utils";
 import { useRouter } from "expo-router";
