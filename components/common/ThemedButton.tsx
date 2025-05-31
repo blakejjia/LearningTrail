@@ -1,19 +1,36 @@
+import { ThemedIcon } from "@/components/common/ThemedIcon";
 import { TouchableOpacity } from "react-native";
 import tw from "twrnc";
-import { ThemedView } from "./ThemedView";
+import { ThemedText } from "./ThemedText";
 
+export enum ThemedButtonType {
+  primary,
+  secondary,
+  normal,
+}
 interface ThemedButtonProps {
-  children: React.ReactNode;
   onPress: () => void;
+  title?: string;
+  type?: ThemedButtonType;
+  disabled?: boolean;
 }
 
-export default function ThemedButton({ children, onPress }: ThemedButtonProps) {
+export default function ThemedButton({
+  onPress,
+  title,
+  type = ThemedButtonType.normal,
+  disabled = false,
+}: ThemedButtonProps) {
   return (
     <TouchableOpacity
-      style={tw`p-4 rounded-lg border-2 justify-center items-center`}
+      style={tw`p-4 rounded-lg border-2 border-gray-400 justify-center items-center`}
       onPress={onPress}
     >
-      <ThemedView>{children}</ThemedView>
+      {title ? (
+        <ThemedText style={tw`text-lg`}>{title}</ThemedText>
+      ) : (
+        <ThemedIcon name="chevron-right" size={24} />
+      )}
     </TouchableOpacity>
   );
 }

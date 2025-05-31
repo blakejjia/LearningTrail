@@ -29,7 +29,7 @@ export default function TabLayout() {
           headerRight: () => (
             <Pressable
               onPress={() => {
-                router.push("/(parent_tabs)/todoItem");
+                router.push("/parent/(tabs)/todoItem");
               }}
               style={tw`mr-4`}
             >

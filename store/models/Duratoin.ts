@@ -25,4 +25,5 @@ export const durationUtils = {
   subtract: (a: Duration, b: Duration): Duration => ({
     milliseconds: a.milliseconds - b.milliseconds,
   }),
+  isZero: (d: Duration): boolean => d.milliseconds === 0,
 };

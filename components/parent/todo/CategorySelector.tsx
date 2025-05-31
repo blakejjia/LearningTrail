@@ -4,7 +4,7 @@ import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 import tw from "twrnc";
 import { ThemedIcon } from "../../common/ThemedIcon";
 import { ThemedText } from "../../common/ThemedText";
-import CategoryToWidget from "../../common/category";
+import CategoryWidget from "../../common/category";
 
 export default function CategorySelector({
   category,
@@ -40,7 +40,7 @@ export default function CategorySelector({
                   }}
                   style={tw`p-3 border-b border-gray-200`}
                 >
-                  <CategoryToWidget category={cat} />
+                  <CategoryWidget category={cat} />
                 </Pressable>
               ))}
             </ScrollView>

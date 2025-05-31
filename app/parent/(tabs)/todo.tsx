@@ -3,11 +3,10 @@ import { ThemedText } from "@/components/common/ThemedText";
 import { ThemedView } from "@/components/common/ThemedView";
 import TodoTile from "@/components/student/todo/TodoTile";
 import { useStore } from "@/store/store";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import { useMemo, useRef, useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import tw from "twrnc";
-import TodoDetail from "../subpages/todo_detail";
 
 export default function TodoItem() {
   const sheetRef = useRef<BottomSheet>(null);
@@ -47,18 +46,6 @@ export default function TodoItem() {
           </Pressable>
         </View>
       </ScrollView>
-
-      {/* Bottom sheet */}
-      <BottomSheet
-        ref={sheetRef}
-        index={0}
-        snapPoints={snapPoints}
-        enablePanDownToClose
-      >
-        <BottomSheetView>
-          <TodoDetail id={selectedId} key={selectedId} />
-        </BottomSheetView>
-      </BottomSheet>
     </View>
   );
 }

@@ -4,8 +4,13 @@ import { Category } from "./category";
 
 export interface TodoItemDetails {
   title?: string;
-  time?: Duration;
   description?: string;
+  // timing
+  totalTime?: Duration;
+  usedTime?: Duration;
+  canPause?: boolean;
+
+  // reward regarding
   identifiedCompleted?: boolean;
   completed?: boolean;
   reward?: Reward;

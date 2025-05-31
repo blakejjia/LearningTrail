@@ -4,14 +4,10 @@ import { ThemedIcon } from "@/components/common/ThemedIcon";
 import TodoTile from "@/components/student/todo/TodoTile";
 import { useStore } from "@/store/store";
 import { router } from "expo-router";
-import { useEffect } from "react";
 import tw from "twrnc";
 
 export default function HomeScreen() {
   const toDoList = useStore((state) => state.toDoList);
-  useEffect(() => {
-    useStore.getState().connectServer();
-  }, []);
 
   if (toDoList.length === 0) {
     return (
@@ -32,7 +28,7 @@ export default function HomeScreen() {
           key={item.id}
           onPress={() => {
             router.push({
-              pathname: "/todoPage/[id]",
+              pathname: "/student/todo/[id]",
               params: { id: item.id },
             });
           }}

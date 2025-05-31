@@ -1,14 +1,12 @@
 import { ThemedView } from "@/components/common/ThemedView";
 import { createDuration, durationUtils } from "@/store/models/Duratoin";
 import { NonSelectedCategory } from "@/store/models/category";
-import { TodoItem } from "@/store/models/todoItem";
 import { useStore } from "@/store/store";
-import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import tw from "twrnc";
 import { ThemedIcon } from "../../common/ThemedIcon";
 import { ThemedText } from "../../common/ThemedText";
-import CategoryToWidget from "../../common/category";
+import CategoryWidget from "../../common/category";
 
 export default function TodoTile({
   uuid,
@@ -17,11 +15,7 @@ export default function TodoTile({
   uuid: string;
   onPress?: () => void;
 }) {
-  const [todo, setTodo] = useState<TodoItem | null>(null);
-  useEffect(() => {
-    const todo = useStore.getState().getTodo(uuid);
-    setTodo(todo);
-  }, [uuid]);
+  const todo = useStore((state) => state.getTodo(uuid));
 
   if (!todo) {
     return (
@@ -48,9 +42,7 @@ export default function TodoTile({
                 )}
               </ThemedText>
               <ThemedText type="default">{" · "}</ThemedText>
-              <CategoryToWidget
-                category={todo.category ?? NonSelectedCategory}
-              />
+              <CategoryWidget category={todo.category ?? NonSelectedCategory} />
             </View>
           </View>
 

@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { NonSelectedCategory } from "./models/category";
+import { Duration } from "./models/Duratoin";
 import { TodoItem } from "./models/todoItem";
 
 export type TodoData = Pick<TodoSlice, "toDoList">;
@@ -22,13 +23,16 @@ export interface TodoSlice {
   toDoList: TodoItem[];
 
   getTodo: (id: string) => TodoItem | null;
-  refreshTodoList: () => void;
+  // regarding completion
   identifyTodoAsCompleted: (id: string) => void;
   identifyAsNotCompleted: (id: string) => void;
   completeTodo: (id: string) => void;
+  // regarding timing
+  setTodoTiming: (id: string, usedTime: Duration) => void;
+  // basics
   createTodo: (toDoItem: TodoItem) => void;
   updateTodo: (id: string, toDoItem: TodoItem) => void;
-  removeToDoItem: (id: string) => void;
+  removeTodo: (id: string) => void;
 }
 
 export const createTodoSlice = (set: any, get: any): TodoSlice => ({
@@ -36,12 +40,20 @@ export const createTodoSlice = (set: any, get: any): TodoSlice => ({
 
   getTodo: (id: string) =>
     get().toDoList.find((item: TodoItem) => item.id === id) || null,
-  refreshTodoList: () => set({ toDoList: get().loadFromDb() }),
   createTodo: (toDoItem) => {
     set({ toDoList: [...get().toDoList, toDoItem] });
     get().saveToDb();
   },
-  removeToDoItem: (id) => {
+  setTodoTiming: (id: string, usedTime: Duration) => {
+    set({
+      toDoList: get().toDoList.map((item: TodoItem) =>
+        item.id === id
+          ? { ...item, details: { ...item.details, usedTime } }
+          : item
+      ),
+    });
+  },
+  removeTodo: (id) => {
     set({
       toDoList: get().toDoList.filter((item: TodoItem) => item.id !== id),
     });

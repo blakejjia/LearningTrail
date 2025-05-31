@@ -1,14 +1,12 @@
 import { ThemedView } from "@/components/common/ThemedView";
 import { createDuration, durationUtils } from "@/store/models/Duratoin";
 import { NonSelectedCategory } from "@/store/models/category";
-import { TodoItem } from "@/store/models/todoItem";
 import { useStore } from "@/store/store";
-import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import tw from "twrnc";
 import { ThemedIcon } from "../../common/ThemedIcon";
 import { ThemedText } from "../../common/ThemedText";
-import CategoryToWidget from "../../common/category";
+import CategoryWidget from "../../common/category";
 
 export default function TodoTile({
   uuid,
@@ -17,11 +15,7 @@ export default function TodoTile({
   uuid: string;
   onPress?: () => void;
 }) {
-  const [todo, setTodo] = useState<TodoItem | null>(null);
-  useEffect(() => {
-    const todo = useStore.getState().getTodo(uuid);
-    setTodo(todo);
-  }, [uuid]);
+  const todo = useStore((state) => state.getTodo(uuid));
 
   if (!todo) {
     return (
@@ -36,20 +30,39 @@ export default function TodoTile({
   return (
     <ThemedView style={tw`p-4 rounded-lg`}>
       <Pressable onPress={onPress}>
-        <ThemedView style={tw`flex-row items-center`}>
-          <View style={tw`flex-1`}>
-            <ThemedText type="defaultSemiBold" style={tw`text-lg`}>
+        <ThemedView
+          style={tw`flex-row items-center ${
+            todo.details?.identifiedCompleted ? "line-through" : ""
+          }`}
+        >
+          <View
+            style={tw`flex-1 ${
+              todo.details?.identifiedCompleted ? "opacity-50" : ""
+            }`}
+          >
+            <ThemedText
+              type="defaultSemiBold"
+              style={tw`text-lg ${
+                todo.details?.identifiedCompleted ? "line-through" : ""
+              }`}
+            >
               {todo.details?.title}
             </ThemedText>
             <View style={tw`flex-row items-center`}>
-              <ThemedText type="default" style={tw`text-sm`}>
+              <ThemedText
+                type="default"
+                style={tw`text-sm ${
+                  todo.details?.identifiedCompleted ? "line-through" : ""
+                }`}
+              >
                 {durationUtils.toString(
                   todo.details?.time ?? createDuration.fromSeconds(0)
                 )}
               </ThemedText>
               <ThemedText type="default">{" · "}</ThemedText>
-              <CategoryToWidget
+              <CategoryWidget
                 category={todo.category ?? NonSelectedCategory}
+                isCompleted={todo.details?.identifiedCompleted}
               />
             </View>
           </View>
