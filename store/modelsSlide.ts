@@ -1,11 +1,7 @@
-import { Category, defaultCategories } from "./models/category";
-import { Currency, defaultCurrencies } from "./models/currency";
+import { Category } from "./models/category";
+import { Currency } from "./models/currency";
 
 export type ModelsData = Pick<ModelsSlide, "currencies" | "categories">;
-export const defaultModelsData: ModelsData = {
-  currencies: defaultCurrencies,
-  categories: defaultCategories,
-};
 
 export interface ModelsSlide {
   currencies: Currency[];

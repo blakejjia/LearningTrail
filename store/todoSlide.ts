@@ -1,23 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
-import { NonSelectedCategory } from "./models/category";
 import { Duration } from "./models/Duratoin";
 import { TodoItem } from "./models/todoItem";
 
 export type TodoData = Pick<TodoSlice, "toDoList">;
-export const defaultTodoData: TodoData = {
-  toDoList: [
-    {
-      id: uuidv4(),
-      category: NonSelectedCategory,
-      details: {
-        title: "Add the todos",
-        description: "Add the todos to the list",
-        completed: false,
-        reward: { amount: 10, currencyId: "1" },
-      },
-    },
-  ],
-};
 
 export interface TodoSlice {
   toDoList: TodoItem[];
@@ -52,6 +36,7 @@ export const createTodoSlice = (set: any, get: any): TodoSlice => ({
           : item
       ),
     });
+    get().saveToDb();
   },
   removeTodo: (id) => {
     set({

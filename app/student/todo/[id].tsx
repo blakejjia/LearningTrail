@@ -14,22 +14,18 @@ import tw from "twrnc";
 export default function TodoPage() {
   const { id } = useLocalSearchParams();
   const [isDoing, setIsDoing] = useState(false);
-  const toDoList = useStore((state) => state.toDoList);
-  const item = toDoList.find((i) => i.id === id);
+  const item = useStore((state) => state.getTodo(id as string));
 
-  const [elapsed, setElapsed] = useState(0); // 计时器
-  const timerRef = useRef<number | null>(
-    item?.details?.usedTime?.milliseconds || 0
+  const [elapsed, setElapsed] = useState(
+    item?.details?.usedTime?.milliseconds ?? 0
   );
+  const timerRef = useRef<number | null>(null);
 
   // 页面结束清除计时器
   useEffect(() => {
     return () => {
-      clearInterval(timerRef.current as number);
+      setIsDoing(false);
       timerRef.current = null;
-      useStore
-        .getState()
-        .setTodoTiming(item!.id, createDuration.fromMilliseconds(elapsed));
     };
   }, []);
 
@@ -40,19 +36,19 @@ export default function TodoPage() {
         setElapsed((prev) => prev + 1000);
       }, 1000);
     } else {
-      clearInterval(timerRef.current as number);
+      clearInterval(timerRef.current!);
+      timerRef.current = null;
     }
 
-    return () => clearInterval(timerRef.current as number); // 清理
+    return () => clearInterval(timerRef.current!);
   }, [isDoing]);
 
+  // 时刻更新计时器
   useEffect(() => {
-    if (isDoing) {
-      useStore
-        .getState()
-        .setTodoTiming(item!.id, createDuration.fromMilliseconds(elapsed));
-    }
-  }, [elapsed, isDoing]);
+    useStore
+      .getState()
+      .setTodoTiming(item!.id, createDuration.fromMilliseconds(elapsed));
+  }, [elapsed]);
 
   if (!item) {
     return (
@@ -83,9 +79,11 @@ export default function TodoPage() {
         )}
       </ThemedView>
       {/* description */}
-      <ThemedText type="default">{item.details?.description}</ThemedText>
+      {item.details?.description && (
+        <ThemedText type="default">{item.details?.description}</ThemedText>
+      )}
       {/* completed or not? */}
-      {item.details?.usedTime && (
+      {item.details?.usedTime && item.details?.usedTime?.milliseconds > 0 && (
         <ThemedView style={tw`flex-row items-center gap-2`}>
           <ThemedText type="defaultSemiBold">Time used:</ThemedText>
           <DurationWidget duration={item.details.usedTime} />
@@ -100,7 +98,13 @@ export default function TodoPage() {
           {/* doing */}
           {isDoing ? (
             <>
-              <ThemedButton onPress={() => setIsDoing(false)} title="Pause" />
+              <ThemedButton
+                onPress={() => {
+                  setIsDoing(false);
+                  useStore.getState().saveToDb();
+                }}
+                title="Pause"
+              />
             </>
           ) : item.details?.identifiedCompleted ? (
             <>
@@ -120,7 +124,12 @@ export default function TodoPage() {
               {/* not completed */}
               <ThemedButton
                 onPress={() => setIsDoing(true)}
-                title="Start Now"
+                title={
+                  item.details?.usedTime &&
+                  item.details?.usedTime?.milliseconds > 0
+                    ? "Continue"
+                    : "Start Now"
+                }
               />
             </>
           )}

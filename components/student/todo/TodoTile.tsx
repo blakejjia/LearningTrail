@@ -1,5 +1,6 @@
 import { ThemedView } from "@/components/common/ThemedView";
-import { createDuration, durationUtils } from "@/store/models/Duratoin";
+import CurrencyWidget from "@/components/common/currency";
+import DurationWidget from "@/components/common/duration";
 import { NonSelectedCategory } from "@/store/models/category";
 import { useStore } from "@/store/store";
 import { Pressable, Text, View } from "react-native";
@@ -49,21 +50,26 @@ export default function TodoTile({
               {todo.details?.title}
             </ThemedText>
             <View style={tw`flex-row items-center`}>
-              <ThemedText
-                type="default"
-                style={tw`text-sm ${
-                  todo.details?.identifiedCompleted ? "line-through" : ""
-                }`}
-              >
-                {durationUtils.toString(
-                  todo.details?.time ?? createDuration.fromSeconds(0)
-                )}
-              </ThemedText>
-              <ThemedText type="default">{" · "}</ThemedText>
-              <CategoryWidget
-                category={todo.category ?? NonSelectedCategory}
-                isCompleted={todo.details?.identifiedCompleted}
-              />
+              {todo.details?.totalTime && (
+                <ThemedText
+                  type="default"
+                  style={tw`text-sm ${
+                    todo.details?.identifiedCompleted ? "line-through" : ""
+                  }`}
+                >
+                  <DurationWidget duration={todo.details?.totalTime} />
+                  <ThemedText type="default">{" · "}</ThemedText>
+                </ThemedText>
+              )}
+              {todo.category && (
+                <CategoryWidget
+                  category={todo.category ?? NonSelectedCategory}
+                  isCompleted={todo.details?.identifiedCompleted}
+                />
+              )}
+              {todo.details?.reward && (
+                <CurrencyWidget currency={todo.details?.reward} />
+              )}
             </View>
           </View>
 

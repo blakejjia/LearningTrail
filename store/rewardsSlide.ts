@@ -1,19 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
 import { Prize } from "./models/prize";
 
 export type PrizeData = Pick<RewardsSlide, "prizes">;
-export const defaultPrizeData: PrizeData = {
-  prizes: [
-    {
-      id: uuidv4(),
-      details: {
-        title: "Reward 1",
-        description: "Reward 1 description",
-        requirements: "Reward 1 requirements",
-      },
-    },
-  ],
-};
 
 export interface RewardsSlide {
   prizes: Prize[];

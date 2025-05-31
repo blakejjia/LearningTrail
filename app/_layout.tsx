@@ -59,6 +59,7 @@ export default function RootLayout() {
             name="student/(tabs)"
             options={{ headerShown: false }}
           />
+          <Stack.Screen name="parent" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

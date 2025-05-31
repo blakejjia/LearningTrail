@@ -1,10 +1,6 @@
 import { Slot, usePathname, useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 
-export const options = {
-  headerShown: false,
-};
-
 export default function ParentLayout() {
   const pathname = usePathname();
   const router = useRouter();

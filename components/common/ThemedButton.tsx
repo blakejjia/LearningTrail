@@ -7,6 +7,7 @@ export enum ThemedButtonType {
   primary,
   secondary,
   normal,
+  small,
 }
 interface ThemedButtonProps {
   onPress: () => void;
@@ -21,6 +22,20 @@ export default function ThemedButton({
   type = ThemedButtonType.normal,
   disabled = false,
 }: ThemedButtonProps) {
+  if (type === ThemedButtonType.small) {
+    return (
+      <TouchableOpacity
+        style={tw`p-2 justify-center items-center`}
+        onPress={onPress}
+      >
+        {title ? (
+          <ThemedText style={tw`text-sm`}>{title}</ThemedText>
+        ) : (
+          <ThemedIcon name="chevron-right" size={24} />
+        )}
+      </TouchableOpacity>
+    );
+  }
   return (
     <TouchableOpacity
       style={tw`p-4 rounded-lg border-2 border-gray-400 justify-center items-center`}

@@ -56,9 +56,8 @@ export default function Signup() {
             setSystemFeedback(result);
             setIsLoading(false);
           }}
-        >
-          <ThemedText>{isLoading ? "Loading..." : "Signup"}</ThemedText>
-        </ThemedButton>
+          title={isLoading ? "Loading..." : "Signup"}
+        />
         {systemFeedback?.success === false && (
           <ThemedText style={tw`text-red-500`}>
             {systemFeedback.message}

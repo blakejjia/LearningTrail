@@ -1,4 +1,6 @@
-import ThemedButton from "@/components/common/ThemedButton";
+import ThemedButton, {
+  ThemedButtonType,
+} from "@/components/common/ThemedButton";
 import { ThemedText } from "@/components/common/ThemedText";
 import { ThemedView } from "@/components/common/ThemedView";
 import { useStore } from "@/store/store";
@@ -23,7 +25,7 @@ export default function index() {
 
   useEffect(() => {
     if (systemFeedback?.success === true) {
-      router.push("/(tabs)/todo");
+      router.push("/student/(tabs)/todo");
     }
   }, [systemFeedback]);
 
@@ -61,20 +63,15 @@ export default function index() {
               setSystemFeedback(result);
               setIsLoading(false);
             }}
-          >
-            <ThemedText>{isLoading ? "Loading..." : "Login"}</ThemedText>
-          </ThemedButton>
-          <ThemedText style={tw`text-center text-gray-500`}>
-            {" "}
-            --- or ---{" "}
-          </ThemedText>
+            title={isLoading ? "Loading..." : "Login"}
+          />
           <ThemedButton
             onPress={() => {
               router.push("/login/signup");
             }}
-          >
-            <ThemedText>Signup</ThemedText>
-          </ThemedButton>
+            type={ThemedButtonType.small}
+            title="Signup"
+          />
         </>
       </ThemedView>
     </ThemedView>

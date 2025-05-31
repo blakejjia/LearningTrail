@@ -29,7 +29,7 @@ export default function TodoDetail({ id }: { id: string | null }) {
   );
   const [date, setDate] = useState(todo?.start_time || new Date());
   const [time, setTime] = useState(
-    todo?.details?.time || createDuration.fromSeconds(0)
+    todo?.details?.totalTime || createDuration.fromSeconds(0)
   );
 
   return (
@@ -69,7 +69,7 @@ export default function TodoDetail({ id }: { id: string | null }) {
                 details: {
                   title,
                   description,
-                  time,
+                  totalTime: time,
                 },
                 start_time: date,
                 category,
@@ -82,7 +82,7 @@ export default function TodoDetail({ id }: { id: string | null }) {
                 details: {
                   title,
                   description,
-                  time,
+                  totalTime: time,
                 },
                 start_time: date,
                 category,

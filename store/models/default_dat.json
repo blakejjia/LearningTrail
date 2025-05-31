@@ -1,0 +1,71 @@
+{
+  "auth": {
+    "parentPassword": 123456
+  },
+  "models": {
+    "categories": [
+      {
+        "id": "3afe9b99-0754-48af-94f3-24d1344e98ef",
+        "name": "语文",
+        "symbol": "menu-book",
+        "description": "语文作业"
+      },
+      {
+        "id": "dfb53882-e716-4ee6-8758-ed6df1983bee",
+        "name": "数学",
+        "symbol": "calculate",
+        "description": "数学作业"
+      },
+      {
+        "id": "1aeab36b-bdf8-49ba-a2e1-76fac1f3acd9",
+        "name": "英语",
+        "symbol": "language",
+        "description": "英语作业"
+      },
+      {
+        "id": "e3ccadfb-7edc-493f-bdf3-baa50c9d09f2",
+        "name": "物理",
+        "symbol": "science",
+        "description": "物理作业"
+      },
+      {
+        "id": "70416249-f890-4675-a799-0ac86946e976",
+        "name": "化学",
+        "symbol": "science",
+        "description": "化学作业"
+      },
+      {
+        "id": "fdf6c68d-04f6-4c67-876f-c76045ab6456",
+        "name": "生物",
+        "symbol": "biotech",
+        "description": "生物作业"
+      },
+      {
+        "id": "f06d141c-91b3-4620-bd9a-23eb72f442e4",
+        "name": "历史",
+        "symbol": "history",
+        "description": "历史作业"
+      },
+      {
+        "id": "fa160a2a-217c-4807-9afa-d6697b70a641",
+        "name": "地理",
+        "symbol": "map",
+        "description": "地理作业"
+      }
+    ],
+    "currencies": [
+      {
+        "id": "1",
+        "name": "Learning Coin",
+        "amount": 0,
+        "symbol": "paid"
+      },
+      {
+        "id": "2",
+        "name": "Diamond",
+        "amount": 0,
+        "symbol": "diamond"
+      }
+    ]
+  }
+}

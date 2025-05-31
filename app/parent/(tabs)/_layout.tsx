@@ -7,7 +7,7 @@ export default function ParentTabsLayout() {
   return (
     <Tabs>
       <Tabs.Screen
-        name="todoItem"
+        name="todo"
         options={{
           title: "ToDo",
           headerRight: () => (

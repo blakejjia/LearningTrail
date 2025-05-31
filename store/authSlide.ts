@@ -1,9 +1,6 @@
 import { db, sessionsTable, usersTable } from "@/drizzle/db";
 import bcrypt from "bcryptjs";
 import { and, eq, or } from "drizzle-orm";
-import { defaultModelsData } from "./modelsSlide";
-import { defaultPrizeData } from "./rewardsSlide";
-import { defaultTodoData } from "./todoSlide";
 import { clearSessionUUID, getSessionUUID, SystemFeedback } from "./utils";
 
 export type AuthData = Pick<AuthSlice, "parentPassword">;
@@ -112,12 +109,7 @@ export const createAuthSlice = (set: any, get: any): AuthSlice => ({
       .values({
         email,
         password: hashedPwd,
-        data: {
-          auth: defaultAuthData,
-          prizes: defaultPrizeData,
-          todo: defaultTodoData,
-          models: defaultModelsData,
-        },
+        data: require("./models/default_dat.json"),
         shortId,
       })
       .returning({ id: usersTable.id });

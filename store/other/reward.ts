@@ -1,4 +1,4 @@
 export interface Reward {
+  currency_id: string;
   amount: number;
-  currencyId: string;
 }

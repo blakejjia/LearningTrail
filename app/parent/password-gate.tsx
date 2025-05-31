@@ -1,19 +1,19 @@
 import ThemedButton from "@/components/common/ThemedButton";
 import { ThemedView } from "@/components/common/ThemedView";
+import useStore from "@/store/store";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, TextInput } from "react-native";
 import tw from "twrnc";
 
-const CORRECT_PASSWORD = "123456";
-
 export default function PasswordGate() {
   const router = useRouter();
   const { redirectTo } = useLocalSearchParams<{ redirectTo: string }>();
   const [password, setPassword] = useState("");
+  const correctPassword = useStore((state) => state.parentPassword);
 
   const handleSubmit = () => {
-    if (password === CORRECT_PASSWORD) {
+    if (password === correctPassword?.toString()) {
       if (redirectTo) {
         router.replace(redirectTo as any); // 替换掉密码页，防止后退跳过验证
       } else {

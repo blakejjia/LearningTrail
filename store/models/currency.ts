@@ -5,17 +5,5 @@ export interface Currency {
   id: string;
   name: string;
   symbol: Symbols;
+  amount: number;
 }
-
-export const defaultCurrencies: Currency[] = [
-  {
-    id: "1",
-    name: "Learning Coin",
-    symbol: "paid",
-  },
-  {
-    id: "2",
-    name: "Diamond",
-    symbol: "diamond",
-  },
-];
