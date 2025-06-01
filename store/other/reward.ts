@@ -1,4 +1,11 @@
+import { Currency } from "../models/currency";
+
 export interface Reward {
-  currency_id: string;
+  currency?: Currency;
   amount: number;
 }
+
+export const RewardNone: Reward = {
+  currency: undefined,
+  amount: 0,
+};

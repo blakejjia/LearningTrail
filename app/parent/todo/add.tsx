@@ -1,6 +1,6 @@
 import { createDuration } from "@/store/models/Duratoin";
 import useStore from "@/store/store";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,43 +20,22 @@ import DateSelector from "@/components/parent/todo/DateSelector";
 import RewardSelector from "@/components/parent/todo/rewardSelector";
 import TimeSelector from "@/components/parent/todo/TimeSelector";
 import { Category, NonSelectedCategory } from "@/store/models/category";
-import { RewardNone } from "@/store/other/reward";
+import { Reward, RewardNone } from "@/store/other/reward";
+import { v4 as uuidv4 } from "uuid";
 
-export default function ModifyTodo() {
-  const { id } = useLocalSearchParams();
-  const todo = useStore((state) => state.getTodo(id as string));
-  const categories = useStore((state) => state.categories);
-  const currencies = useStore((state) => state.currencies);
-  const removeTodo = useStore((state) => state.removeTodo);
-  const updateTodo = useStore((state) => state.updateTodo);
-
-  const [title, setTitle] = useState(todo?.details?.title || "");
-  const [description, setDescription] = useState(
-    todo?.details?.description || ""
-  );
-  const [category, setCategory] = useState<Category>(
-    todo?.category || NonSelectedCategory
-  );
-  const [date, setDate] = useState(todo?.start_time || new Date());
-  const [time, setTime] = useState(
-    todo?.details?.totalTime || createDuration.fromSeconds(0)
-  );
-  const [reward, setReward] = useState(todo?.details?.reward || RewardNone);
-  const [canPause, setCanPause] = useState<boolean>(
-    todo?.details?.canPause ?? true
-  );
-
-  if (!id || typeof id !== "string") {
-    return <ThemedText>Loading...</ThemedText>;
-  }
-  if (!todo) {
-    return <ThemedText>Todo not found</ThemedText>;
-  }
+export default function AddTodo() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState<Category>(NonSelectedCategory);
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(createDuration.fromSeconds(0));
+  const [reward, setReward] = useState<Reward>(RewardNone);
+  const [canPause, setCanPause] = useState(true);
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
       <ThemedView style={tw`p-4 gap-4`}>
-        <ThemedText type="title">Modify the todo</ThemedText>
+        <ThemedText type="title">Add a new todo</ThemedText>
         <ThemedTextInput
           value={title}
           onChangeText={setTitle}
@@ -87,7 +66,7 @@ export default function ModifyTodo() {
                   <CategorySelector
                     category={category}
                     setCategory={setCategory}
-                    categories={categories}
+                    categories={useStore((state) => state.categories)}
                   />
                 ),
               },
@@ -101,7 +80,7 @@ export default function ModifyTodo() {
                   <RewardSelector
                     reward={reward}
                     setReward={setReward}
-                    currencies={currencies}
+                    currencies={useStore((state) => state.currencies)}
                   />
                 ),
               },
@@ -124,42 +103,33 @@ export default function ModifyTodo() {
           </ThemedView>
         </ThemedView>
 
-        {/* modify or delete */}
-        <ThemedView style={tw`flex-row gap-2 items-center`}>
-          <ThemedButton
-            style={tw`flex-1`}
-            title="Delete"
-            onPress={() => {
-              removeTodo(todo.id).then((success) => {
-                if (success) {
-                  router.push("/parent/todo");
-                }
-              });
-            }}
-          />
-          <ThemedButton
-            type={ThemedButtonType.primary}
-            style={tw`flex-1`}
-            title="Modify"
-            onPress={() => {
-              updateTodo(todo.id, {
-                id: todo.id,
-                details: {
-                  title,
-                  description,
-                  totalTime: time,
-                  canPause,
-                },
-                start_time: date,
-                category,
-                created_at: todo.created_at,
-                updated_at: new Date(),
-              });
-              router.back();
-              // TODO: pop up a toast saying success
-            }}
-          />
-        </ThemedView>
+        <ThemedButton
+          type={ThemedButtonType.primary}
+          title="Add"
+          onPress={() => {
+            useStore.getState().createTodo({
+              id: uuidv4(),
+              details: {
+                title,
+                description,
+                totalTime: time,
+                canPause,
+                reward,
+              },
+              start_time: date,
+              category,
+              created_at: new Date(),
+              updated_at: new Date(),
+            });
+            router.back();
+            setTitle("");
+            setDescription("");
+            setCategory(NonSelectedCategory);
+            setDate(new Date());
+            setTime(createDuration.fromSeconds(0));
+            // TODO: pop up a toast saying success
+          }}
+        />
       </ThemedView>
     </SafeAreaView>
   );

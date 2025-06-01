@@ -1,3 +1,4 @@
+import ThemedButton from "@/components/common/ThemedButton";
 import {
   createDuration,
   Duration,
@@ -33,13 +34,10 @@ export default function TimeSelector({
 
   return (
     <>
-      <Pressable
-        style={tw`rounded-xl p-2 border-2 border-gray-200 flex-row items-center gap-2`}
-        onPress={() => setTimeOpen(true)}
-      >
+      <ThemedButton onPress={() => setTimeOpen(true)}>
         <ThemedIcon name="timer" size={24} />
         <ThemedText>{time ? durationUtils.toString(time) : "Time"}</ThemedText>
-      </Pressable>
+      </ThemedButton>
       <Modal visible={timeOpen} transparent animationType="slide">
         <View style={tw`flex-1 justify-center items-center bg-black/50`}>
           <View style={tw`bg-white p-4 rounded-xl flex-row`}>

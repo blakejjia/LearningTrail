@@ -1,6 +1,6 @@
 import { AuthData } from "./authSlide";
 import { ModelsData } from "./modelsSlide";
-import { PrizeData } from "./rewardsSlide";
+import { PrizeData } from "./prizesSlide";
 import { StoreData, StoreState } from "./store";
 import { TodoData } from "./todoSlide";
 

@@ -1,16 +1,12 @@
 import { create } from "zustand";
 import { AuthData, AuthSlice, createAuthSlice } from "./authSlide";
 import { createModelsSlide, ModelsData, ModelsSlide } from "./modelsSlide";
-import {
-  createRewardsSlideSlice,
-  PrizeData,
-  RewardsSlide,
-} from "./rewardsSlide";
+import { createPrizesSlideSlice, PrizeData, PrizesSlide } from "./prizesSlide";
 import { createStorageSlide, StorageSlide } from "./storageSlide";
 import { createTodoSlice, TodoData, TodoSlice } from "./todoSlide";
 
 export type StoreState = AuthSlice &
-  RewardsSlide &
+  PrizesSlide &
   TodoSlice &
   ModelsSlide &
   StorageSlide;
@@ -23,7 +19,7 @@ export type StoreData = {
 
 export const useStore = create<StoreState>()((set, get) => ({
   ...createAuthSlice(set, get),
-  ...createRewardsSlideSlice(set, get),
+  ...createPrizesSlideSlice(set, get),
   ...createTodoSlice(set, get),
   ...createModelsSlide(set, get),
   ...createStorageSlide(set, get),

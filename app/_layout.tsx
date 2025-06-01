@@ -50,9 +50,8 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack
-          initialRouteName={
-            systemFeedback?.success ? "student/(tabs)" : "login/index"
-          }
+          // TODO: 改回来student/tabs
+          initialRouteName={systemFeedback?.success ? "parent" : "login/index"}
         >
           <Stack.Screen name="login/index" options={{ headerShown: false }} />
           <Stack.Screen

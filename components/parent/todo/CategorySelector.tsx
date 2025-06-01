@@ -1,3 +1,4 @@
+import ThemedButton from "@/components/common/ThemedButton";
 import { Category } from "@/store/models/category";
 import { useState } from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
@@ -19,13 +20,10 @@ export default function CategorySelector({
 
   return (
     <>
-      <Pressable
-        style={tw`rounded-xl p-2 border-2 border-gray-200 flex-row items-center gap-2`}
-        onPress={() => setCategoryOpen(true)}
-      >
+      <ThemedButton onPress={() => setCategoryOpen(true)}>
         <ThemedIcon name="category" size={24} />
         <ThemedText>{category.name}</ThemedText>
-      </Pressable>
+      </ThemedButton>
       <Modal visible={categoryOpen} transparent animationType="slide">
         <View style={tw`flex-1 justify-end bg-black/50`}>
           <View style={tw`bg-white rounded-t-xl p-4 max-h-[50%]`}>

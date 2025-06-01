@@ -8,14 +8,15 @@ export default function ParentLayout() {
 
   useEffect(() => {
     // 确保不会在 password-gate 页面再次跳转
-    if (pathname !== "/parent/password-gate" && isFirstVisit.current) {
-      isFirstVisit.current = false;
-      router.replace({
-        pathname: "/parent/password-gate",
-        params: { redirectTo: pathname },
-      });
-    }
+    // TODO:加回来
+    //   if (pathname !== "/parent/password-gate" && isFirstVisit.current) {
+    //     isFirstVisit.current = false;
+    //     router.replace({
+    //       pathname: "/parent/password-gate",
+    //       params: { redirectTo: pathname },
+    //     });
+    //   }
   }, [pathname]);
 
-  return <Slot />;
+  return <Slot screenOptions={{ headerShown: false }} />;
 }

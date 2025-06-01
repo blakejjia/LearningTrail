@@ -1,9 +1,9 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
-import { Platform, Pressable } from "react-native";
-import tw from "twrnc";
-import { ThemedIcon } from "../../common/ThemedIcon";
+import { Platform } from "react-native";
 import DateWidget from "../../common/date";
+import ThemedButton from "../../common/ThemedButton";
+import { ThemedIcon } from "../../common/ThemedIcon";
 export default function DateSelector({
   date,
   setDate,
@@ -14,13 +14,10 @@ export default function DateSelector({
   const [dateOpen, setDateOpen] = useState(false);
   return (
     <>
-      <Pressable
-        style={tw`rounded-xl p-2 border-2 border-gray-200 flex-row items-center gap-2`}
-        onPress={() => setDateOpen(true)}
-      >
+      <ThemedButton onPress={() => setDateOpen(true)}>
         <ThemedIcon name="calendar-today" size={24} />
         <DateWidget date={new Date(date)} />
-      </Pressable>
+      </ThemedButton>
       {dateOpen && (
         <DateTimePicker
           value={new Date(date)}

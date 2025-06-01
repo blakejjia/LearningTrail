@@ -1,15 +1,15 @@
 import { Prize } from "./models/prize";
 
-export type PrizeData = Pick<RewardsSlide, "prizes">;
+export type PrizeData = Pick<PrizesSlide, "prizes">;
 
-export interface RewardsSlide {
+export interface PrizesSlide {
   prizes: Prize[];
   getPrize: (id: string) => Prize | null;
   addPrize: (prize: Prize) => void;
   removePrize: (id: string) => void;
 }
 
-export const createRewardsSlideSlice = (set: any, get: any): RewardsSlide => ({
+export const createPrizesSlideSlice = (set: any, get: any): PrizesSlide => ({
   prizes: [],
   getPrize: (id: string) =>
     get().prizes.find((prize: Prize) => prize.id === id) || null,

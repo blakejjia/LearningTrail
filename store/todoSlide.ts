@@ -16,7 +16,7 @@ export interface TodoSlice {
   // basics
   createTodo: (toDoItem: TodoItem) => void;
   updateTodo: (id: string, toDoItem: TodoItem) => void;
-  removeTodo: (id: string) => void;
+  removeTodo: (id: string) => Promise<boolean>;
 }
 
 export const createTodoSlice = (set: any, get: any): TodoSlice => ({
@@ -43,6 +43,7 @@ export const createTodoSlice = (set: any, get: any): TodoSlice => ({
       toDoList: get().toDoList.filter((item: TodoItem) => item.id !== id),
     });
     get().saveToDb();
+    return Promise.resolve(true);
   },
   identifyTodoAsCompleted: (id: string) => {
     set({
