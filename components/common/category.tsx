@@ -8,21 +8,22 @@ export default function CategoryWidget({
   category,
   isCompleted,
 }: {
-  category: Category;
+  category?: Category;
   isCompleted?: boolean;
 }) {
   return (
-    <ThemedView style={tw`flex-row gap-1 items-center`}>
-      <ThemedIcon
-        style={isCompleted ? tw`line-through` : undefined}
-        name={category.symbol}
-        size={24}
-      />
-      <ThemedText
-        style={isCompleted ? tw`line-through` : undefined}
-        type="default"
-      >
-        {category.name}
+    <ThemedView style={tw`flex-row gap-1 items-center justify-center`}>
+      {isCompleted ? (
+        <ThemedIcon
+          name={category?.symbol ?? "category"}
+          size={16}
+          style={tw`line-through`}
+        />
+      ) : (
+        <ThemedIcon name={category?.symbol ?? "category"} size={24} />
+      )}
+      <ThemedText type={isCompleted ? "strikethrough" : "default"}>
+        {category?.name ?? "General"}
       </ThemedText>
     </ThemedView>
   );

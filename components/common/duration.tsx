@@ -1,9 +1,20 @@
-import { Duration, durationUtils } from "@/store/models/Duratoin";
+import {
+  createDuration,
+  Duration,
+  durationUtils,
+} from "@/store/models/Duratoin";
 import { ThemedText } from "./ThemedText";
 
-export default function DurationWidget({ duration }: { duration?: Duration }) {
-  if (!duration || durationUtils.isZero(duration)) {
-    return <ThemedText>Unavaliable</ThemedText>;
-  }
-  return <ThemedText>{durationUtils.toString(duration)}</ThemedText>;
+export default function DurationWidget({
+  duration,
+  isCompleted,
+}: {
+  duration?: Duration;
+  isCompleted?: boolean;
+}) {
+  return (
+    <ThemedText type={isCompleted ? "strikethrough" : "default"}>
+      {durationUtils.toString(duration ?? createDuration.fromSeconds(0))}
+    </ThemedText>
+  );
 }

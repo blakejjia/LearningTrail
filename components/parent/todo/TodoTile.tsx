@@ -1,13 +1,12 @@
+import ThemedButton from "@/components/common/ThemedButton";
 import { ThemedView } from "@/components/common/ThemedView";
-import { createDuration, durationUtils } from "@/store/models/Duratoin";
-import { NonSelectedCategory } from "@/store/models/category";
+import DurationWidget from "@/components/common/duration";
 import { useStore } from "@/store/store";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import tw from "twrnc";
 import { ThemedIcon } from "../../common/ThemedIcon";
 import { ThemedText } from "../../common/ThemedText";
 import CategoryWidget from "../../common/category";
-
 export default function TodoTile({
   uuid,
   onPress,
@@ -16,8 +15,9 @@ export default function TodoTile({
   onPress?: () => void;
 }) {
   const todo = useStore((state) => state.getTodo(uuid));
+  const updateTodo = useStore((state) => state.updateTodo);
 
-  if (!todo) {
+  if (!todo || !todo.details) {
     return (
       <ThemedView style={tw`m-4 rounded-2xl`}>
         <View style={tw`flex-1`}>
@@ -29,32 +29,80 @@ export default function TodoTile({
 
   return (
     <ThemedView style={tw`p-4 rounded-lg`}>
-      <Pressable onPress={onPress}>
-        <ThemedView style={tw`flex-row items-center`}>
-          <View style={tw`flex-1`}>
-            <ThemedText type="defaultSemiBold" style={tw`text-lg`}>
-              {todo.details?.title}
-            </ThemedText>
-            <View style={tw`flex-row items-center`}>
-              <ThemedText type="default" style={tw`text-sm`}>
-                {durationUtils.toString(
-                  todo.details?.time ?? createDuration.fromSeconds(0)
-                )}
-              </ThemedText>
-              <ThemedText type="default">{" · "}</ThemedText>
-              <CategoryWidget category={todo.category ?? NonSelectedCategory} />
-            </View>
-          </View>
+      <ThemedButton onPress={onPress} style={tw`p-4`}>
+        {/* left hand-side */}
+        <ThemedView style={tw`flex-1 flex-col`}>
+          <ThemedText
+            type={todo.details?.completed ? "strikethrough" : "subtitle"}
+          >
+            {todo.details?.title}
+          </ThemedText>
+          <ThemedView style={tw`flex-row items-center gap-2`}>
+            {todo.details?.totalTime && (
+              <DurationWidget
+                duration={todo.details?.totalTime}
+                isCompleted={todo.details?.completed}
+              />
+            )}
+            {todo.category && (
+              <CategoryWidget
+                category={todo.category}
+                isCompleted={todo.details?.completed}
+              />
+            )}
+          </ThemedView>
+        </ThemedView>
 
+        {/* right hand-side, control if this is completed or not */}
+        <ThemedView style={tw`flex-1 flex-col items-end justify-center`}>
           {todo.details?.completed ? (
-            <ThemedIcon name="done-all" size={25} />
+            <ThemedButton
+              style={tw`w-10`}
+              onPress={() => {
+                updateTodo(todo.id, {
+                  ...todo,
+                  details: {
+                    ...todo.details,
+                    completed: false,
+                  },
+                });
+              }}
+            >
+              <ThemedIcon name="done-all" size={20} />
+            </ThemedButton>
+          ) : todo.details?.identifiedCompleted ? (
+            <ThemedButton
+              style={tw`w-10`}
+              onPress={() => {
+                updateTodo(todo.id, {
+                  ...todo,
+                  details: {
+                    ...todo.details,
+                    identifiedCompleted: false,
+                  },
+                });
+              }}
+            >
+              <ThemedIcon name="check" size={20} />
+            </ThemedButton>
           ) : (
-            todo.details?.identifiedCompleted && (
-              <ThemedIcon name="check" size={25} />
-            )
+            <ThemedButton
+              style={tw`w-10`}
+              onPress={() => {
+                updateTodo(todo.id, {
+                  ...todo,
+                  details: {
+                    ...todo.details,
+                    completed: true,
+                  },
+                });
+              }}
+            >
+              <ThemedIcon name="close" size={20} />
+            </ThemedButton>
           )}
         </ThemedView>
-      </Pressable>
+      </ThemedButton>
     </ThemedView>
   );
 }

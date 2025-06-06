@@ -14,7 +14,7 @@ export default function TimeSelector({
   time,
   setTime,
 }: {
-  time: Duration;
+  time?: Duration;
   setTime: (time: Duration) => void;
 }) {
   const [timeOpen, setTimeOpen] = useState(false);

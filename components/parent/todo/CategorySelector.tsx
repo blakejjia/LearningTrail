@@ -3,8 +3,6 @@ import { Category } from "@/store/models/category";
 import { useState } from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 import tw from "twrnc";
-import { ThemedIcon } from "../../common/ThemedIcon";
-import { ThemedText } from "../../common/ThemedText";
 import CategoryWidget from "../../common/category";
 
 export default function CategorySelector({
@@ -12,7 +10,7 @@ export default function CategorySelector({
   setCategory,
   categories,
 }: {
-  category: Category;
+  category?: Category;
   setCategory: (category: Category) => void;
   categories: Category[];
 }) {
@@ -21,8 +19,7 @@ export default function CategorySelector({
   return (
     <>
       <ThemedButton onPress={() => setCategoryOpen(true)}>
-        <ThemedIcon name="category" size={24} />
-        <ThemedText>{category.name}</ThemedText>
+        <CategoryWidget category={category} />
       </ThemedButton>
       <Modal visible={categoryOpen} transparent animationType="slide">
         <View style={tw`flex-1 justify-end bg-black/50`}>

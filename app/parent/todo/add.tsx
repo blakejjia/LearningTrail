@@ -1,4 +1,4 @@
-import { createDuration } from "@/store/models/Duratoin";
+import { createDuration, Duration } from "@/store/models/Duratoin";
 import useStore from "@/store/store";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -26,9 +26,9 @@ import { v4 as uuidv4 } from "uuid";
 export default function AddTodo() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState<Category>(NonSelectedCategory);
+  const [category, setCategory] = useState<Category | undefined>(undefined);
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(createDuration.fromSeconds(0));
+  const [time, setTime] = useState<Duration | undefined>(undefined);
   const [reward, setReward] = useState<Reward>(RewardNone);
   const [canPause, setCanPause] = useState(true);
 
@@ -51,7 +51,7 @@ export default function AddTodo() {
           style={tw`pl-4`}
         />
 
-        {/* Date, category, timing, */}
+        {/* Date, category, timing, reward */}
         <ThemedText type="defaultSemiBold">Settings</ThemedText>
         <ThemedView style={tw`flex-col gap-2 w-full`}>
           <FlatList

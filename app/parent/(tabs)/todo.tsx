@@ -2,7 +2,7 @@ import ThemedButton from "@/components/common/ThemedButton";
 import { ThemedIcon } from "@/components/common/ThemedIcon";
 import { ThemedText } from "@/components/common/ThemedText";
 import { ThemedView } from "@/components/common/ThemedView";
-import TodoTile from "@/components/student/todo/TodoTile";
+import TodoTile from "@/components/parent/todo/TodoTile";
 import { useStore } from "@/store/store";
 import { router } from "expo-router";
 import { ScrollView, View } from "react-native";
