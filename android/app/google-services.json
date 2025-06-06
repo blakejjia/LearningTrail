@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "988726282577",
+    "project_id": "learning-trail-64cd1",
+    "storage_bucket": "learning-trail-64cd1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988726282577:android:fb4c165f37ae8edae76b70",
+        "android_client_info": {
+          "package_name": "com.example.learningtrail"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988726282577-34843fg70e71dkegmadt67p6647f3r8m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADnucDUW30M-ax9mQqRSjyCi8hOdVRbgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988726282577-34843fg70e71dkegmadt67p6647f3r8m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
