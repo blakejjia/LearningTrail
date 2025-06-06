@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learningtrail/services/auth.dart';
 import 'package:learningtrail/app/homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:learningtrail/app/loginPage.dart';
+import 'package:learningtrail/app/auth/loginPage.dart';
 
 class Entrypage extends StatefulWidget {
   const Entrypage({super.key});

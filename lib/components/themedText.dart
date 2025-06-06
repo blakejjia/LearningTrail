@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum ThemedTextType { primary, secondary }
+enum ThemedTextType { primary, secondary, hint }
 
 class ThemedText extends StatelessWidget {
   final String text;
@@ -36,5 +36,7 @@ Color _textColor(BuildContext context, ThemedTextType type) {
       return Theme.of(context).colorScheme.onSurface;
     case ThemedTextType.secondary:
       return Theme.of(context).colorScheme.onSurfaceVariant;
+    case ThemedTextType.hint:
+      return Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(50);
   }
 }

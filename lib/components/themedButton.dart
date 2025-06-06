@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:learningtrail/components/themedText.dart';
+import 'package:flutter/services.dart';
 
 enum ThemedButtonType { primary, secondary }
 
-class ThemedButton extends StatelessWidget {
+class ThemedButton extends StatefulWidget {
   // Button onPressed
   final VoidCallback? onPressed;
 
@@ -16,8 +17,8 @@ class ThemedButton extends StatelessWidget {
   // Button title, if has title, children will be ignored
   final String? title;
 
-  // Button children, if has children, title will be ignored
-  final Widget? children;
+  // Button child, if has child, title will be ignored
+  final Widget? child;
 
   // Button type
   final ThemedButtonType type;
@@ -27,35 +28,64 @@ class ThemedButton extends StatelessWidget {
     required this.onPressed,
     required this.title,
     this.width,
-    this.children,
+    this.child,
     this.type = ThemedButtonType.primary,
     this.reversed = false,
   });
 
   @override
+  State<ThemedButton> createState() => _ThemedButtonState();
+}
+
+class _ThemedButtonState extends State<ThemedButton> {
+  bool _pressed = false;
+
+  void _setPressed(bool value) {
+    setState(() {
+      _pressed = value;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        width: width ?? double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          color: _backgroundColor(context, reversed, type),
-          border: Border.all(
-            color: Theme.of(
-              context,
-            ).colorScheme.onTertiaryContainer.withAlpha(50),
-            width: 2,
+    return GestureDetector(
+      onTap: widget.onPressed,
+      onTapDown: (_) {
+        _setPressed(true);
+        HapticFeedback.lightImpact();
+      },
+      onTapUp: (_) => _setPressed(false),
+      onTapCancel: () => _setPressed(false),
+      child: AnimatedScale(
+        scale: _pressed ? 0.98 : 1.0,
+        duration: const Duration(milliseconds: 100),
+        child: Container(
+          width: widget.width ?? double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.0),
+            color: _backgroundColor(context, widget.reversed, widget.type),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.onTertiaryContainer.withAlpha(50),
+              width: 2,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Center(
-            child: ThemedText(
-              text: title?.toUpperCase() ?? '',
-              type: ThemedTextType.primary,
-              fontSize: 18.0,
-              color: _foregroundColor(context, reversed, type),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14.0),
+            child: Center(
+              child:
+                  widget.child ??
+                  ThemedText(
+                    text: widget.title?.toUpperCase() ?? '',
+                    type: ThemedTextType.primary,
+                    fontSize: 18.0,
+                    color: _foregroundColor(
+                      context,
+                      widget.reversed,
+                      widget.type,
+                    ),
+                  ),
             ),
           ),
         ),

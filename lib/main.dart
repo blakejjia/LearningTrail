@@ -35,9 +35,8 @@ class MyApp extends StatelessWidget {
               // surface
               surface: Colors.white,
               surfaceContainerHigh: Color(0xFFe5e5e5),
-              onSurface: Color(0xFF434343),
-              onSurfaceVariant: Color(0XFF6b6b6b),
-
+              onSurface: Color(0xFF434343), // color for normal text
+              onSurfaceVariant: Color(0Xaa6b6b6b), // color for hint text
               // other
               error: Colors.red,
               onError: Colors.white,

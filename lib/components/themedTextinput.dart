@@ -7,12 +7,14 @@ class ThemedTextInput extends StatelessWidget {
     this.hint,
     this.height,
     this.obscureText = false,
+    this.autofillHints,
   });
 
   final String? hint;
   final double? height;
   final TextEditingController? controller;
   final bool obscureText;
+  final List<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class ThemedTextInput extends StatelessWidget {
         ),
       ),
       child: TextField(
+        autofillHints: autofillHints,
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
