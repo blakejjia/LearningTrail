@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:learningtrail/components/themedButton.dart';
-import 'package:learningtrail/components/themedText.dart';
-import 'package:learningtrail/components/themedTextInput.dart';
-import 'package:learningtrail/app/auth/signupPage.dart';
-import 'package:learningtrail/services/auth.dart';
+import 'package:learningtrail/components/themed_button.dart';
+import 'package:learningtrail/components/themed_text.dart';
+import 'package:learningtrail/components/themed_textinput.dart';
+import 'package:learningtrail/app/entry_page.dart';
+import 'package:learningtrail/services/auth_service.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String _errorMessage = '';
   bool _isLoading = false;
 
-  Future<void> _signIn() async {
+  Future<void> _signUp() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
         _errorMessage = 'Please enter an email and password';
@@ -29,9 +29,13 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = true;
     });
     try {
-      await AuthService().signInWithEmailAndPassword(
+      await AuthService().signUpWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Entrypage()),
       );
     } catch (e) {
       setState(() {
@@ -44,47 +48,44 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _navigateToSignup() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignupPage()),
-    );
-  }
-
   Future<void> _loginWithGoogle() async {
-    await AuthService().signInWithGoogle();
+    bool success = await AuthService().signInWithGoogle();
+    if (success) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Entrypage()),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 20,
           children: [
             ThemedText(
-              text: 'Log in',
+              text: 'Create your profile',
               type: ThemedTextType.primary,
-              fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
             ),
-            SizedBox(),
+            SizedBox.shrink(),
             ThemedTextInput(
-              hint: 'Email',
               controller: _emailController,
+              hint: 'Email',
               autofillHints: [AutofillHints.email],
             ),
             ThemedTextInput(
-              hint: 'Password',
               controller: _passwordController,
-              obscureText: true,
+              hint: 'Password',
               autofillHints: [AutofillHints.password],
             ),
             ThemedButton(
-              onPressed: _signIn,
-              title: 'Log In',
+              onPressed: _signUp,
+              title: 'Create Account',
               type: ThemedButtonType.secondary,
             ),
             Row(
@@ -112,26 +113,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: ThemedButton(
-                    onPressed: _navigateToSignup,
-                    title: 'Sign Up',
-                    type: ThemedButtonType.secondary,
-                    reversed: true,
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: ThemedButton(
-                    onPressed: _loginWithGoogle,
-                    title: 'google',
-                    type: ThemedButtonType.secondary,
-                    reversed: true,
-                  ),
-                ),
-              ],
+
+            ThemedButton(
+              onPressed: _loginWithGoogle,
+              title: 'Sign up with Google',
+              type: ThemedButtonType.secondary,
+              reversed: true,
             ),
             if (_errorMessage.isNotEmpty)
               ThemedText(

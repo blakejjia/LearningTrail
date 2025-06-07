@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learningtrail/components/themedText.dart';
+import 'package:learningtrail/components/themed_text.dart';
 import 'package:flutter/services.dart';
 
 enum ThemedButtonType { primary, secondary, blank }
@@ -70,7 +70,7 @@ class _ThemedButtonState extends State<ThemedButton> {
         duration: const Duration(milliseconds: 100),
         child: Container(
           width: widget.width ?? double.infinity,
-          height: widget.height ?? double.infinity,
+          height: widget.height ?? 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
             color:

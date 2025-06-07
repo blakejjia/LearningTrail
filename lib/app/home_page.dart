@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:learningtrail/app/student/learningPage.dart';
-import 'package:learningtrail/app/student/StorePage.dart';
-import 'package:learningtrail/app/student/settingPage.dart';
-import 'package:learningtrail/components/themedButton.dart';
+import 'package:learningtrail/app/tabs/learningPage.dart';
+import 'package:learningtrail/app/tabs/StorePage.dart';
+import 'package:learningtrail/app/tabs/settingPage.dart';
+import 'package:learningtrail/components/themed_button.dart';
 import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
