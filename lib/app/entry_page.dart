@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learningtrail/app/home_page.dart';
 import 'package:learningtrail/app/bloc/system_cubit.dart';
-import 'package:learningtrail/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:learningtrail/app/auth/login_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

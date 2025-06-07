@@ -70,7 +70,7 @@ class _ThemedButtonState extends State<ThemedButton> {
         duration: const Duration(milliseconds: 100),
         child: Container(
           width: widget.width ?? double.infinity,
-          height: widget.height ?? 50,
+          height: widget.height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
             color:

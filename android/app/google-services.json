@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:988726282577:android:fb4c165f37ae8edae76b70",
+        "mobilesdk_app_id": "1:988726282577:android:68d59ad287d27eb3e76b70",
         "android_client_info": {
-          "package_name": "com.example.learningtrail"
+          "package_name": "com.jiayx.learningtrail"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "988726282577-9miit1pudk6rj7ni6b70an3he8p5h1l0.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.learningtrail",
-            "certificate_hash": "82dacfb0719f8e333d1e1eeb69ec31ccb8e52df3"
-          }
-        },
         {
           "client_id": "988726282577-34843fg70e71dkegmadt67p6647f3r8m.apps.googleusercontent.com",
           "client_type": 3
@@ -28,7 +20,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyADnucDUW30M-ax9mQqRSjyCi8hOdVRbgM"
+          "current_key": "AIzaSyBsKqFYcij4yVrKsEaH6fy7SETYCP39dxA"
         }
       ],
       "services": {

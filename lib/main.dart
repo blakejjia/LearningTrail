@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'services/firebase_options.dart';
+import 'firebase_options.dart';
 import 'app/entry_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learningtrail/app/bloc/system_cubit.dart';
@@ -8,7 +8,9 @@ import 'package:learningtrail/app/bloc/system_cubit.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(create: (context) => SystemCubit(), child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -44,12 +46,7 @@ class MyApp extends StatelessWidget {
               onError: Colors.white,
             ),
       ),
-      home: Scaffold(
-        body: BlocProvider(
-          create: (context) => SystemCubit(),
-          child: Entrypage(),
-        ),
-      ),
+      home: Scaffold(body: Entrypage()),
     );
   }
 }

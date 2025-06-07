@@ -11,4 +11,12 @@ class SystemLoggedIn extends SystemState {
   SystemLoggedIn({required this.user});
 }
 
-class SystemAccountConnected extends SystemState {}
+class SystemAccountConnected extends SystemLoggedIn {
+  final List<Prize> prizes;
+  final List<Task> tasks;
+  SystemAccountConnected({
+    required super.user,
+    required this.prizes,
+    required this.tasks,
+  });
+}

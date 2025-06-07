@@ -1,4 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:learningtrail/models/prize.dart';
+import 'package:learningtrail/models/task.dart';
 import 'package:learningtrail/services/db_service.dart';
 import 'package:learningtrail/services/auth_service.dart';
 import 'package:learningtrail/models/user.dart';
@@ -34,7 +37,23 @@ class SystemCubit extends Cubit<SystemState> {
           ),
         );
       } else {
-        logout();
+        emit(SystemNotLoggedIn());
+      }
+    });
+  }
+
+  void connectAccount(String accountId) {
+    DbService().getAccount(accountId).then((account) {
+      if (account != null && state is SystemLoggedIn) {
+        emit(
+          SystemAccountConnected(
+            user: (state as SystemLoggedIn).user,
+            prizes: account.prizes,
+            tasks: account.tasks,
+          ),
+        );
+      } else {
+        Fluttertoast.showToast(msg: "Account not found");
       }
     });
   }
@@ -42,8 +61,7 @@ class SystemCubit extends Cubit<SystemState> {
   void login(MyUser user) {
     DbService().getUser(user.uid).then((dbuser) {
       if (dbuser != null) {
-        user.setAvatarUrl(dbuser.avatarUrl);
-        user.setName(dbuser.name);
+        user = dbuser;
       } else {
         DbService().addUser(user);
       }
@@ -54,6 +72,5 @@ class SystemCubit extends Cubit<SystemState> {
 
   void logout() {
     AuthService().signOut();
-    emit(SystemNotLoggedIn());
   }
 }

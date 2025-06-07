@@ -4,6 +4,7 @@ import 'package:learningtrail/components/themed_column.dart';
 import 'package:learningtrail/components/themed_text.dart';
 import 'package:learningtrail/app/bloc/system_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learningtrail/app/subpages/connect_account.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -41,7 +42,8 @@ class SettingsPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Image.network(
-                    user.avatarUrl ?? '',
+                    user.avatarUrl ??
+                        'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
                     width: 100,
                     height: 100,
                   ),
@@ -52,18 +54,22 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 8,
                   children: [
-                    ThemedText(
-                      text: user.name ?? '',
-                      type: ThemedTextType.primary,
-                      fontSize: 24,
-                      textAlign: TextAlign.left,
-                    ),
+                    // display name
+                    if (user.name != null)
+                      ThemedText(
+                        text: user.name!,
+                        type: ThemedTextType.primary,
+                        fontSize: 24,
+                        textAlign: TextAlign.left,
+                      ),
+                    // email
                     ThemedText(
                       text: user.email,
                       type: ThemedTextType.secondary,
                       fontSize: 16,
                       textAlign: TextAlign.left,
                     ),
+                    // joined date
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -74,11 +80,13 @@ class SettingsPage extends StatelessWidget {
                           fontSize: 16,
                           textAlign: TextAlign.left,
                         ),
-                        ThemedText(
-                          text: 'ID: ${user.uid}',
-                          type: ThemedTextType.secondary,
-                          fontSize: 16,
-                        ),
+                        // custom id
+                        if (user.customId != null)
+                          ThemedText(
+                            text: 'ID: ${user.customId}',
+                            type: ThemedTextType.secondary,
+                            fontSize: 16,
+                          ),
                       ],
                     ),
                   ],
@@ -92,26 +100,49 @@ class SettingsPage extends StatelessWidget {
                   ).colorScheme.onTertiaryContainer.withAlpha(50),
                 ),
                 const SizedBox(height: 24),
-                // Account
                 ThemedColumn(
                   title: 'Account',
                   children: [
-                    ThemedText(
-                      text: "More...",
-                      type: ThemedTextType.primary,
-                      fontSize: 16,
+                    ThemedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ConnectAccountPage(),
+                          ),
+                        );
+                      },
+                      type: ThemedButtonType.blank,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ThemedText(
+                            text: "Connect Account",
+                            type: ThemedTextType.primary,
+                            fontSize: 16,
+                            textAlign: TextAlign.left,
+                          ),
+                          Icon(Icons.arrow_forward_ios, size: 16),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                ThemedButton(
-                  type: ThemedButtonType.secondary,
-                  reversed: true,
-                  height: 50,
-                  onPressed: () {
-                    SystemCubit().logout();
-                  },
-                  title: 'Log Out',
+                // Account
+                const SizedBox(height: 24),
+                Column(
+                  spacing: 16,
+                  children: [
+                    ThemedButton(
+                      type: ThemedButtonType.secondary,
+                      reversed: true,
+                      height: 50,
+                      onPressed: () {
+                        SystemCubit().logout();
+                      },
+                      title: 'Log Out',
+                    ),
+                  ],
                 ),
               ],
             ),
