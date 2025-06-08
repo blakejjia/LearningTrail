@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "988726282577-ik3tcoquhaufu4ck8ibtoba80pg9s04i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jiayx.learningtrail",
+            "certificate_hash": "82dacfb0719f8e333d1e1eeb69ec31ccb8e52df3"
+          }
+        },
+        {
           "client_id": "988726282577-34843fg70e71dkegmadt67p6647f3r8m.apps.googleusercontent.com",
           "client_type": 3
         }

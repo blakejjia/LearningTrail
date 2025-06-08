@@ -8,14 +8,14 @@ part 'account_data.g.dart';
 
 @JsonSerializable()
 class AccountData {
-  final MyUser parent;
-  final Currency currency;
+  final MyUser? parent;
+  final List<Currency> currencies;
   final List<Prize> prizes;
   final List<Task> tasks;
 
   AccountData({
-    required this.parent,
-    required this.currency,
+    this.parent,
+    required this.currencies,
     required this.prizes,
     required this.tasks,
   });

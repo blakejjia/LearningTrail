@@ -69,7 +69,7 @@ class _ThemedButtonState extends State<ThemedButton> {
         scale: _pressed ? 0.98 : 1.0,
         duration: const Duration(milliseconds: 100),
         child: Container(
-          width: widget.width ?? double.infinity,
+          width: widget.width,
           height: widget.height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
@@ -86,7 +86,7 @@ class _ThemedButtonState extends State<ThemedButton> {
           child:
               widget.child ??
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 14.0),
+                padding: const EdgeInsets.all(14.0),
                 child: Center(
                   child: ThemedText(
                     text: widget.title?.toUpperCase() ?? '',

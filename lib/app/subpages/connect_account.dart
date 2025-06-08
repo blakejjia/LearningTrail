@@ -48,6 +48,25 @@ class ConnectAccountPage extends StatelessWidget {
                 ],
               ),
 
+              // current account (if any)
+              if (context.read<SystemCubit>().state is SystemAccountConnected)
+                Column(
+                  children: [
+                    ThemedText(
+                      text:
+                          'Current account: ${(context.read<SystemCubit>().state as SystemAccountConnected).user.connectedAccount}',
+                      type: ThemedTextType.primary,
+                      fontSize: 24,
+                    ),
+                    ThemedText(
+                      text:
+                          "Clicking connect will disconnect you from your current account",
+                      type: ThemedTextType.warning,
+                      fontSize: 16,
+                    ),
+                  ],
+                ),
+
               // text input
               ThemedTextInput(
                 hint: 'Account ID',
@@ -60,6 +79,7 @@ class ConnectAccountPage extends StatelessWidget {
                     context.read<SystemCubit>().connectAccount(
                       accountIdController.text,
                     );
+                    Navigator.pop(context);
                   } else {
                     Fluttertoast.showToast(msg: 'Please enter an account ID');
                   }

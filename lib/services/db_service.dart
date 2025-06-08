@@ -3,7 +3,7 @@ import 'package:learningtrail/models/account_data.dart';
 import 'package:learningtrail/models/user.dart';
 
 const String usersCollection = 'users';
-const String accountsCollection = 'studnets';
+const String accountsCollection = 'students';
 
 class DbService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

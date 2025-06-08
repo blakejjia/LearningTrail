@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:learningtrail/app/tabs/learningPage.dart';
-import 'package:learningtrail/app/tabs/StorePage.dart';
-import 'package:learningtrail/app/tabs/settingPage.dart';
+import 'package:learningtrail/app/tabs/learning_page.dart';
+import 'package:learningtrail/app/tabs/store_page.dart';
+import 'package:learningtrail/app/tabs/setting_page.dart';
 import 'package:learningtrail/components/themed_button.dart';
 import 'package:lottie/lottie.dart';
 

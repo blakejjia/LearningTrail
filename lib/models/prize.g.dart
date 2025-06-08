@@ -11,7 +11,7 @@ Prize _$PrizeFromJson(Map<String, dynamic> json) => Prize(
   name: json['name'] as String,
   description: json['description'] as String,
   imageUrl: json['imageUrl'] as String,
-  cost: (json['cost'] as num).toInt(),
+  cost: Currency.fromJson(json['cost'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$PrizeToJson(Prize instance) => <String, dynamic>{

@@ -7,8 +7,12 @@ part of 'account_data.dart';
 // **************************************************************************
 
 AccountData _$AccountDataFromJson(Map<String, dynamic> json) => AccountData(
-  parent: MyUser.fromJson(json['parent'] as Map<String, dynamic>),
-  currency: Currency.fromJson(json['currency'] as Map<String, dynamic>),
+  parent: json['parent'] == null
+      ? null
+      : MyUser.fromJson(json['parent'] as Map<String, dynamic>),
+  currencies: (json['currencies'] as List<dynamic>)
+      .map((e) => Currency.fromJson(e as Map<String, dynamic>))
+      .toList(),
   prizes: (json['prizes'] as List<dynamic>)
       .map((e) => Prize.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -20,7 +24,7 @@ AccountData _$AccountDataFromJson(Map<String, dynamic> json) => AccountData(
 Map<String, dynamic> _$AccountDataToJson(AccountData instance) =>
     <String, dynamic>{
       'parent': instance.parent,
-      'currency': instance.currency,
+      'currencies': instance.currencies,
       'prizes': instance.prizes,
       'tasks': instance.tasks,
     };

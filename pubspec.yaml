@@ -46,6 +46,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   change_app_package_name: ^1.5.0
   fluttertoast: ^8.2.12
+  flutter_svg: ^2.1.0
 
 dev_dependencies:
   flutter_test:

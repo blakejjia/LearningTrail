@@ -1,12 +1,10 @@
-import 'package:bloc/bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:learningtrail/models/prize.dart';
-import 'package:learningtrail/models/task.dart';
+import 'package:learningtrail/models/account_data.dart';
 import 'package:learningtrail/services/db_service.dart';
 import 'package:learningtrail/services/auth_service.dart';
 import 'package:learningtrail/models/user.dart';
-import 'package:meta/meta.dart';
 import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'system_state.dart';
 
@@ -42,14 +40,17 @@ class SystemCubit extends Cubit<SystemState> {
     });
   }
 
-  void connectAccount(String accountId) {
+  void connectAccount(String? accountId) {
+    if (accountId == null) {
+      emit(SystemLoggedIn(user: (state as SystemLoggedIn).user));
+      return;
+    }
     DbService().getAccount(accountId).then((account) {
       if (account != null && state is SystemLoggedIn) {
         emit(
           SystemAccountConnected(
             user: (state as SystemLoggedIn).user,
-            prizes: account.prizes,
-            tasks: account.tasks,
+            accountData: account,
           ),
         );
       } else {
@@ -62,12 +63,13 @@ class SystemCubit extends Cubit<SystemState> {
     DbService().getUser(user.uid).then((dbuser) {
       if (dbuser != null) {
         user = dbuser;
+        emit(SystemLoggedIn(user: dbuser));
+        connectAccount(dbuser.connectedAccount);
       } else {
         DbService().addUser(user);
+        emit(SystemLoggedIn(user: user));
       }
     });
-
-    emit(SystemLoggedIn(user: user));
   }
 
   void logout() {

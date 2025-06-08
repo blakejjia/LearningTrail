@@ -37,7 +37,6 @@ class AuthService {
       await _auth.signInWithCredential(credential);
       return true;
     } catch (e) {
-      print("error:" + e.toString());
       return false;
     }
   }

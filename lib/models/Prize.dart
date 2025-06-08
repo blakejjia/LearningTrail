@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:learningtrail/models/currency.dart';
 
 part 'prize.g.dart';
 
@@ -8,7 +9,7 @@ class Prize {
   final String name;
   final String description;
   final String imageUrl;
-  final int cost;
+  final Currency cost;
 
   Prize({
     required this.id,
